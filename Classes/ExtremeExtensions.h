@@ -13,6 +13,9 @@
 // XX Packages
 #include "QuickMenu/xxQuickMenu.h"
 
+// Utilities.
+#include "Utils/XMLParser/XMLParser.h"
+
 NS_XX_BEGIN
 
 XX_DLL const char* xxVersion ();

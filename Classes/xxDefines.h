@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 
 // Versions
-#define XX_VERSION 0x00000100
+#define XX_VERSION 0x00000101
 #define MIN_REQUIRED_CC_VERSION 0x00030400
 #define MAX_TESTED_CC_VERSION 0x00030400
 
@@ -12,7 +12,7 @@
     #error  "Minimum cocos2d-x version requirements are not met."
 #endif
 #if (MAX_TESTED_CC_VERSION < COCOS2D_VERSION)
-    #error  "Currently used cocos2d-x version are not yet compatible."
+    #error  "Currently used cocos2d-x version is not yet compatible."
 #endif
 
 // Namespace macros

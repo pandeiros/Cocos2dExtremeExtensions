@@ -13,36 +13,54 @@
     <Filter Include="Core">
       <UniqueIdentifier>{48221de5-5644-472b-8aa5-3fe4c2dfda19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils\XMLParser">
+      <UniqueIdentifier>{70df85cb-6c94-457d-bece-689e95052c94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\MessageHandler">
+      <UniqueIdentifier>{65e71e25-a2cc-4206-8ea8-3bb6df5ae98e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\StringUtilities">
+      <UniqueIdentifier>{fcc83e02-cdca-495f-9ee0-0f822dca0e1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Classes\QuickMenu\xxQuickMenu.cpp">
+      <Filter>QuickMenu</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\ExtremeExtensions.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Utils\XMLParser.cpp">
-      <Filter>Utils</Filter>
+    <ClCompile Include="..\Classes\Utils\XMLParser\XMLParser.cpp">
+      <Filter>Utils\XMLParser</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Utils\StringUtilities.cpp">
-      <Filter>Utils</Filter>
+    <ClCompile Include="..\Classes\Utils\MessageHandler\MessageHandler.cpp">
+      <Filter>Utils\MessageHandler</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\QuickMenu\xxQuickMenu.cpp">
-      <Filter>QuickMenu</Filter>
+    <ClCompile Include="..\Classes\Utils\StringUtilities\StringUtilities.cpp">
+      <Filter>Utils\StringUtilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\ExtremeExtensions.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Utils\XMLParser.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Utils\StringUtilities.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\xxDefines.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\QuickMenu\xxQuickMenu.h">
       <Filter>QuickMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils\XMLParser\XMLParser.h">
+      <Filter>Utils\XMLParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils\MessageHandler\MessageHandler.h">
+      <Filter>Utils\MessageHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils\StringUtilities\StringUtilities.h">
+      <Filter>Utils\StringUtilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils\XMLParser\XMLParserDefines.h">
+      <Filter>Utils\XMLParser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,16 +3,14 @@
 
 #include "../xxDefines.h"
 #include "ui/UILayout.h"
-#include "../Utils/XMLParser.h"
+#include "../Utils/XMLParser/XMLParser.h"
 
 NS_XX_BEGIN
 
 class XX_DLL QuickMenu {
 public:
-    typedef std::vector<XMLParser::Tag> Scheme;
-
     void setLayer (cocos2d::Layer * layer);
-    void setScheme (Scheme & scheme);
+    void setScheme (XMLParser::Scheme & scheme);
     void setSchemeFromFile (const std::string filename);
 
 private:
