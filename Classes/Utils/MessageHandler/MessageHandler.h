@@ -22,6 +22,7 @@ public:
     // Message type
     enum Type {
         _UNKNOWN,
+        _NO_FORMAT,
         _INFO,
         _WARNING,
         _ERROR,

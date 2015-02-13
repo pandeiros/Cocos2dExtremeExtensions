@@ -39,12 +39,15 @@ public:
     // Parse given file. Returns true if operation was successful, false otherwise.
     bool parse ();
 
+    void printAll ();
+
 private:
+    Scheme scheme;
+
     bool openFile (std::string & content);
     bool parseContent (std::string & content);
 
     bool parseTag (std::string & content);
-
     bool parseAttribute (std::string & content);
     bool parseComment (std::string & content);
 
@@ -54,8 +57,6 @@ private:
         TAG_INSIDE,
         ATTR_NAME,
         ATTR_VALUE,
-        EMPTY_TAG_END,
-        NEMPTY_TAG_START,
         NEMPTY_TAG_END,
         POSSIBLE_COMMENT,
         COMMENT,
@@ -70,6 +71,7 @@ private:
     unsigned int index = 0;
     unsigned int nested = 0;
     unsigned int lines = 1;
+    unsigned int insertPos = -1;
     char ch = ' ';
     std::string s = "";    
     bool eof = false;

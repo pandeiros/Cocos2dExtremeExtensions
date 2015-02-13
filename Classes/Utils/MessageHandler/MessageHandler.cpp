@@ -3,17 +3,20 @@
 void MessageHandler::printMessage (const std::string message, Type type) {
     std::string output = "";
     switch (type) {
+        case _NO_FORMAT:
+            output = message;
+            break;
         case _ERROR :
-            output = "\n<!!!> ERROR : " + message + "\n\n";
+            output = "\n<!!!> ERROR : " + message + "\n";
             break;
         case _WARNING:
-            output = "\n<?> Warning : " + message + "\n\n";
+            output = "\n<?> Warning : " + message + "\n";
             break;
         case _INFO:
-            output = "\n   > > >  " + message + "  < < <\n\n";
+            output = "\n   > > >  " + message + "  < < <\n";
             break;
         case _TIME:
-            output = "=============== Time:\t" + message + " [sec] ====\n\n";
+            output = "=============== Time:\t" + message + " [sec] ====\n";
             break;
 
         default:
@@ -23,7 +26,7 @@ void MessageHandler::printMessage (const std::string message, Type type) {
 #ifdef COCOS2D_DEBUG
     CCLOG (output.c_str());
 #else
-    std::cout << output;
+    std::cout << output << "\n";
 #endif
 
 }

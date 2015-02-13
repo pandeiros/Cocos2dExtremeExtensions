@@ -1,9 +1,6 @@
 #ifndef __EXTREME_EXTENSIONS_H__
 #define __EXTREME_EXTENSIONS_H__
 
-// Exclude rarely-used stuff from Windows headers
-#define WIN32_LEAN_AND_MEAN
-
 // Cocos2D lib
 #include "cocos2d/cocos/cocos2d.h"
 

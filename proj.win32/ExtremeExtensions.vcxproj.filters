@@ -22,6 +22,9 @@
     <Filter Include="Utils\StringUtilities">
       <UniqueIdentifier>{fcc83e02-cdca-495f-9ee0-0f822dca0e1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Exe">
+      <UniqueIdentifier>{966eba38-5802-4e5a-9ad3-53a7f95839d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\QuickMenu\xxQuickMenu.cpp">
@@ -38,6 +41,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Utils\StringUtilities\StringUtilities.cpp">
       <Filter>Utils\StringUtilities</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Exe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Utils\XMLParser\XMLParserDefines.h">
       <Filter>Utils\XMLParser</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Exe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
