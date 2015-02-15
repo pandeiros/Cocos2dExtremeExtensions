@@ -1,9 +1,13 @@
-#ifndef __STRING__UTILITIES_H__
-#define __STRING__UTILITIES_H__
+#ifndef __XX_STRING_UTILITIES_H__
+#define __XX_STRING_UTILITIES_H__
+
+#include "xxConfig.h"
 
 #include <string>
 #include <sstream>
 #include <iostream>
+
+NS_XX_BEGIN
 
 /**
     Non-instantiable class. Provides various string operations.
@@ -31,4 +35,6 @@ inline Type StringUtilities::convertFromString (const std::string value) {
     return conversion;
 }
 
-#endif
+NS_XX_END
+
+#endif  // __XX_STRING_UTILITIES_H__

@@ -1,0 +1,4 @@
+#ifndef __XX_QUICK_MENU_DEFINES_H__
+#define __XX_QUICK_MENU_DEFINES_H__
+
+#endif  // __XX_QUICK_MENU_DEFINES_H__

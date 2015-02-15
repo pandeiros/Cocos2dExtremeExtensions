@@ -1,4 +1,6 @@
-#include "XMLParser.h"
+#include "xxXMLParser.h"
+
+USING_NS_XX;
 
 XMLParser::XMLParser (const std::string filename) : mFilename (filename) {
 }
@@ -21,7 +23,7 @@ void XMLParser::printAll () {
     std::string indent = "";
     for (XMLNode & node : scheme) {
         std::string attrIndent = "";
-        
+
         if (node.type == XMLNode::ATTRIBUTE)
             attrIndent = "  + ";
         else if (node.type == XMLNode::NON_EMPTY_TAG_END)
@@ -31,8 +33,12 @@ void XMLParser::printAll () {
 
         if (node.type == XMLNode::NON_EMPTY_TAG_BEGIN)
             indent += "   ";
-       
+
     }
+}
+
+XMLParser::Scheme * XMLParser::getScheme () {
+    return &scheme;
 }
 
 bool XMLParser::openFile (std::string & content) {
@@ -101,7 +107,9 @@ bool XMLParser::parseContent (std::string & content) {
                     return false;
             }
             else {
-                XX_ERROR_RETURN_FALSE ("Invalid character combination '<" + std::to_string (ch) + "' (line " + std::to_string (lines) + ").");
+                std::string temp = "";
+                temp += ch;
+                XX_ERROR_RETURN_FALSE ("Invalid character combination '<" + temp + "' (line " + std::to_string (lines) + ").");
             }
 
         }
@@ -119,22 +127,24 @@ bool XMLParser::parseTag (std::string & content) {
     state = XMLParser::TAG_NAME;
     ++nested;
 
+    // Check for closing tag.
     if (ch == '/') {
-        state = NEMPTY_TAG_END;
-        --nested;
+        state = XMLParser::NEMPTY_TAG_END;
     }
     else {
         node.name += ch;
-    }   
+    }
 
+    // Check for header.
     if (isHeader)
         node.type = XMLNode::HEADER;
 
     bool isFinished = false;
 
+    // Parse tag.
     while (!isFinished) {
         switch (state) {
-            case TAG_NAME:
+            case XMLParser::TAG_NAME:
                 XML_READ_ONE_CHAR (content);
 
                 if (XML_CHECK_ALFANUM)
@@ -147,7 +157,8 @@ bool XMLParser::parseTag (std::string & content) {
                     XX_ERROR_RETURN_FALSE ("Invalid tag name character (line " + std::to_string (lines) + ").");
                 }
                 break;
-            case NEMPTY_TAG_END:
+
+            case XMLParser::NEMPTY_TAG_END:
                 XML_READ_ONE_CHAR (content);
 
                 if (XML_CHECK_ALFANUM)
@@ -161,7 +172,7 @@ bool XMLParser::parseTag (std::string & content) {
                 }
                 break;
 
-            case TAG_INSIDE:
+            case XMLParser::TAG_INSIDE:
                 XML_READ_ONE_CHAR (content);
 
                 if (XML_CHECK_SPACE)
@@ -171,15 +182,6 @@ bool XMLParser::parseTag (std::string & content) {
                         return false;
 
                     state = TAG_INSIDE;
-                }
-                else if (XML_CHECK_OPEN_BRACKET) {
-                    if (XML_CHECK_NEXT_CHAR ('!')) {
-                        ++index;
-                        if (!this->parseComment (content))
-                            return false;
-
-                        state = TAG_INSIDE;
-                    }
                 }
                 else if (XML_CHECK_CLOSE_BRACKET) {
                     if (isHeader) {
@@ -199,7 +201,7 @@ bool XMLParser::parseTag (std::string & content) {
                         node.type = XMLNode::EMPTY_TAG;
 
                         isHeader = false;
-                        --nested;
+                        //--nested;
                         isFinished = true;
                     }
                     else {
@@ -215,7 +217,7 @@ bool XMLParser::parseTag (std::string & content) {
                         node.type = XMLNode::HEADER;
 
                         isHeader = false;
-                        --nested;
+                        //--nested;
                         isFinished = true;
                     }
                 }
@@ -226,13 +228,16 @@ bool XMLParser::parseTag (std::string & content) {
         }
     }
 
+    // If attributes were not inserted, just push back a new node.
     if (insertPos == -1 || insertPos == scheme.size ())
         scheme.push_back (node);
     else {
+        // Otherwise insert tag before its attributes.
         Scheme::iterator iter = scheme.begin ();
         scheme.insert (iter + insertPos, node);
     }
 
+    --nested;
     insertPos = -1;
 
     return true;
@@ -251,7 +256,7 @@ bool XMLParser::parseAttribute (std::string & content) {
 
     while (!isFinished) {
         switch (state) {
-            case ATTR_NAME:
+            case XMLParser::ATTR_NAME:
                 XML_READ_ONE_CHAR (content);
 
                 if (XML_CHECK_ALFANUM)
@@ -270,7 +275,7 @@ bool XMLParser::parseAttribute (std::string & content) {
                 }
                 break;
 
-            case ATTR_VALUE:
+            case XMLParser::ATTR_VALUE:
                 XML_READ_ONE_CHAR (content);
 
                 if (XML_CHECK_QUOTE) {
@@ -278,10 +283,6 @@ bool XMLParser::parseAttribute (std::string & content) {
                     --nested;
                     isFinished = true;
                 }
-                /*else if (XML_CHECK_BACKSLASH) {
-                    XML_READ_ONE_CHAR (content);                    
-                    node.value += ch;
-                }*/
                 else {
                     node.value += ch;
                 }
@@ -294,6 +295,57 @@ bool XMLParser::parseAttribute (std::string & content) {
 
 bool XMLParser::parseComment (std::string & content) {
     state = XMLParser::POSSIBLE_COMMENT;
+
+    bool isFinished = false;
+
+    while (!isFinished) {
+        switch (state) {
+            case XMLParser::POSSIBLE_COMMENT:
+                XML_READ_ONE_CHAR (content);
+
+                if (XML_CHECK_DASH) {
+                    if (XML_CHECK_NEXT_CHAR ('-')) {
+                        ++index;
+                        state = XMLParser::COMMENT;
+                    }
+                    else {
+                        XX_ERROR_RETURN_FALSE ("Invalid comment opening (line " + std::to_string (lines) + ").");
+                    }
+                }
+                else {
+                    XX_ERROR_RETURN_FALSE ("Invalid comment opening (line " + std::to_string (lines) + ").");
+                }
+                break;
+
+            case XMLParser::COMMENT:
+                XML_READ_ONE_CHAR (content);
+
+                if (XML_CHECK_DASH)
+                    state = XMLParser::POSSIBLE_COMMENT_END;
+                else
+                    continue;
+                break;
+
+            case XMLParser::POSSIBLE_COMMENT_END:
+                XML_READ_ONE_CHAR (content);
+
+                if (XML_CHECK_DASH) {
+                    if (XML_CHECK_NEXT_CHAR ('>')) {
+                        ++index;
+                        isFinished = true;
+                        break;
+                    }
+                    else
+                        state = XMLParser::COMMENT;
+                }
+                else
+                    state = XMLParser::COMMENT;
+                break;
+
+            default:
+                break;
+        }
+    }
 
     return true;
 }

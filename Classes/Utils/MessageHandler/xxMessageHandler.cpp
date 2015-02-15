@@ -1,7 +1,10 @@
-#include "MessageHandler.h"
+#include "xxMessageHandler.h"
+
+USING_NS_XX;
 
 void MessageHandler::printMessage (const std::string message, Type type) {
     std::string output = "";
+
     switch (type) {
         case _NO_FORMAT:
             output = message;
@@ -13,7 +16,7 @@ void MessageHandler::printMessage (const std::string message, Type type) {
             output = "\n<?> Warning : " + message + "\n";
             break;
         case _INFO:
-            output = "\n   > > >  " + message + "  < < <\n";
+            output = "\n   > > >  " + message + "\n";
             break;
         case _TIME:
             output = "=============== Time:\t" + message + " [sec] ====\n";
@@ -25,10 +28,7 @@ void MessageHandler::printMessage (const std::string message, Type type) {
 
 #ifdef COCOS2D_DEBUG
     CCLOG (output.c_str());
-#else
-    std::cout << output << "\n";
 #endif
-
 }
 
 void MessageHandler::printDebugSection (const std::string title, bool isBegin) {
@@ -39,5 +39,4 @@ void MessageHandler::printDebugSection (const std::string title, bool isBegin) {
         std::cout << std::setw (10 + title.size ()) << std::setfill ('=') << "" << " End of section ===\n\n";
         std::cout << std::setfill (' ');
     }
-
 }

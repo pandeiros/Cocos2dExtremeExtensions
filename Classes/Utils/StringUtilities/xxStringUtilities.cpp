@@ -1,4 +1,6 @@
-#include "StringUtilities.h"
+#include "xxStringUtilities.h"
+
+USING_NS_XX;
 
 void StringUtilities::replaceKeyword (const std::string keyword, const std::string value, std::string & text) {
     // If keyword is not found, print an error.

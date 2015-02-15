@@ -1,20 +1,20 @@
-#ifndef __MESSAGE_HANDLER_H__
-#define __MESSAGE_HANDLER_H__
+#ifndef __XX_MESSAGE_HANDLER_H__
+#define __XX_MESSAGE_HANDLER_H__
 
-#ifdef COCOS2D_DEBUG
-#include "cocos2d.h"
-#endif
+#define xxMSG MessageHandler
 
-#include "../../xxDefines.h"
+#include "xxConfig.h"
 
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include <map>
 
+NS_XX_BEGIN
+
 /**
     Non-instantiable class for displaying formatted message results.
-    Provides 3 message types: errors, warnings and information messages.
+    Provides 4 message types: errors, warnings, information and elapsed time messages.
     Contains predefined templates for popular messages.
 */
 class XX_DLL MessageHandler {
@@ -41,9 +41,11 @@ public:
 
     // Prints custom debug section indicator.
     // \param string title : Debug section title.
-    // \param bool isBegin : True if start of the sectiom false if end.
+    // \param bool isBegin : True if start of the sectiom, false if end.
     static void printDebugSection (const std::string title, bool isBegin);
 };
 
-#endif
+NS_XX_END
+
+#endif  // __XX_MESSAGE_HANDLER_H__
 

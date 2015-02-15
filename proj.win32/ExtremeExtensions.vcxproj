@@ -27,7 +27,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '10.0'">v100</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0'">v110</PlatformToolset>
@@ -66,7 +66,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
-    <TargetExt>.dll</TargetExt>
+    <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
@@ -76,7 +76,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>XX_EXE;WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -89,7 +89,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -145,19 +145,21 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClCompile Include="..\Classes\QuickMenu\xxQuickMenu.cpp" />
     <ClCompile Include="..\Classes\ExtremeExtensions.cpp" />
-    <ClCompile Include="..\Classes\Utils\MessageHandler\MessageHandler.cpp" />
-    <ClCompile Include="..\Classes\Utils\StringUtilities\StringUtilities.cpp" />
-    <ClCompile Include="..\Classes\Utils\XMLParser\XMLParser.cpp" />
+    <ClCompile Include="..\Classes\Utils\MessageHandler\xxMessageHandler.cpp" />
+    <ClCompile Include="..\Classes\Utils\StringUtilities\xxStringUtilities.cpp" />
+    <ClCompile Include="..\Classes\Utils\XMLParser\xxXMLParser.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\ExtremeExtensions.h" />
     <ClInclude Include="..\Classes\QuickMenu\xxQuickMenu.h" />
-    <ClInclude Include="..\Classes\Utils\MessageHandler\MessageHandler.h" />
-    <ClInclude Include="..\Classes\Utils\StringUtilities\StringUtilities.h" />
-    <ClInclude Include="..\Classes\Utils\XMLParser\XMLParser.h" />
-    <ClInclude Include="..\Classes\Utils\XMLParser\XMLParserDefines.h" />
-    <ClInclude Include="..\Classes\xxDefines.h" />
+    <ClInclude Include="..\Classes\QuickMenu\xxQuickMenuDefines.h" />
+    <ClInclude Include="..\Classes\Utils\MessageHandler\xxMessageHandler.h" />
+    <ClInclude Include="..\Classes\Utils\StringUtilities\xxStringUtilities.h" />
+    <ClInclude Include="..\Classes\Utils\XMLParser\xxXMLParser.h" />
+    <ClInclude Include="..\Classes\Utils\XMLParser\xxXMLParserDefines.h" />
+    <ClInclude Include="..\Classes\xxConfig.h" />
+    <ClInclude Include="..\Classes\xxMacros.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

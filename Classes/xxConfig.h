@@ -1,10 +1,13 @@
-#ifndef __XX_DEFINES_H__
-#define __XX_DEFINES_H__
+#ifndef __XX_CONFIG_H__
+#define __XX_CONFIG_H__
 
 // Exclude rarely-used stuff from Windows headers
 #define WIN32_LEAN_AND_MEAN
 
 #include "cocos2d.h"
+
+// Shared, useful macros.
+#include "xxMacros.h"
 
 #ifdef XX_EXE
     // Windows Header Files:
@@ -17,7 +20,7 @@
 
 
 // Versions
-#define XX_VERSION 0x00000102
+#define XX_VERSION 0x00000103
 #define MIN_REQUIRED_CC_VERSION 0x00030400
 #define MAX_TESTED_CC_VERSION 0x00030400
 
@@ -41,9 +44,5 @@
     #define XX_DLL __declspec(dllexport)
 #endif
 
-// Errors messages
-#define XX_ERROR(message) MessageHandler::printMessage (message, MessageHandler::_ERROR)
-#define XX_ERROR_RETURN_FALSE(message) MessageHandler::printMessage (message, MessageHandler::_ERROR); return false
 
-
-#endif  // __XX_DEFINES_H__
+#endif  // __XX_CONFIG_H__

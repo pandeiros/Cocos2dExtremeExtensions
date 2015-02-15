@@ -1,5 +1,5 @@
-#ifndef __XML_PARSER_DEFINES_H__
-#define __XML_PARSER_DEFINES_H__
+#ifndef __XX_XML_PARSER_DEFINES_H__
+#define __XX_XML_PARSER_DEFINES_H__
 
 #define XML_READ_ONE_CHAR(content) \
     if (eof) { \
@@ -23,8 +23,10 @@
 #define XML_CHECK_QUOTE ((ch == '"') ? (true) : (false))
 #define XML_CHECK_BACKSLASH ((ch == '\\') ? (true) : (false))
 #define XML_CHECK_SLASH ((ch == '/') ? (true) : (false))
+#define XML_CHECK_DASH ((ch == '-') ? (true) : (false))
 #define XML_CHECK_ALFANUM (((ch >= 48 && ch <= 57) || (ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122)) ? (true) : (false))
 
 #define XML_CHECK_STOP ((eof && nested == 0) ? (true) : (false))
 
-#endif
+
+#endif  // __XX_XML_PARSER_DEFINES_H__

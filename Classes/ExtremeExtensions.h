@@ -5,13 +5,15 @@
 #include "cocos2d/cocos/cocos2d.h"
 
 // Extreme Extensions defines
-#include "xxDefines.h"
+#include "xxConfig.h"
 
 // XX Packages
 #include "QuickMenu/xxQuickMenu.h"
 
 // Utilities.
-#include "Utils/XMLParser/XMLParser.h"
+#include "Utils/XMLParser/xxXMLParser.h"
+#include "Utils/MessageHandler/xxMessageHandler.h"
+#include "Utils/StringUtilities/xxStringUtilities.h"
 
 NS_XX_BEGIN
 
@@ -20,4 +22,4 @@ XX_DLL const char* xxVersion ();
 NS_XX_END
 
 
-#endif  // __XX_MACROS_H__
+#endif  // __EXTREME_EXTENSIONS_H__

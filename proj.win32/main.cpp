@@ -10,10 +10,18 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // Test here:
-    XMLParser parser = XMLParser ("network.config");
-    parser.parse ();
-    parser.printAll ();
+
+    // TESTS HERE ====================================
+
+    xx::XMLParser parser = xx::XMLParser ("network.config");
+    if (!parser.parse ())
+        XX_ERROR ("Parsing xml file failed!");
+    else
+        parser.printAll ();
+
+    // ===============================================
+
+    return 0;
 }
 
 #endif // XX_EXE
