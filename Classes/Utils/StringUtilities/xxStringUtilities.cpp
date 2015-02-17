@@ -2,12 +2,11 @@
 
 USING_NS_XX;
 
-void StringUtilities::replaceKeyword (const std::string keyword, const std::string value, std::string & text) {
+void StringUtilities::replaceKeyword (const std::string & keyword, const std::string & value, std::string & text) {
     // If keyword is not found, print an error.
     unsigned int keywordPos = text.find (keyword);
     if (keywordPos == std::string::npos) {
-        std::cout << "\n <!> ERROR <!>\n";
-        std::cout << "  Keyword '" + keyword + "' cannot be found!\n";
+        XX_ERROR ("Keyword '" + keyword + "' cannot be found!");
         return;
     }
 

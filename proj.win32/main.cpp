@@ -13,11 +13,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
     // TESTS HERE ====================================
 
-    xx::XMLParser parser = xx::XMLParser ("network.config");
-    if (!parser.parse ())
-        XX_ERROR ("Parsing xml file failed!");
-    else
-        parser.printAll ();
+    xx::QuickMenu * qm = xx::xxQM::create ();
+    xx::XMLParser parser = xx::XMLParser ("menu.xml");
+    parser.parse ();
+
+    qm->setScheme (parser.getScheme ());
+    
 
     // ===============================================
 

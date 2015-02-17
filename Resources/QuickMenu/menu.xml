@@ -1,0 +1,19 @@
+<!--
+    This is a sample menu for QuickMenu class from Cocos2D Extreme Extensions pack,
+    featuring most of the functionalities and attributes it offers.
+-->
+<?xml version="1.0" encoding="UTF-8"?>
+<Menu Align="Vertical" Padding="10">
+  <Label Name="Pretty Label" />
+  <Item Type="Image" Normal="CloseNormal.png" Selected="CloseSelected.png" Callback="new_game" />
+
+  <Item Name="Options" Action="Options"/>
+  <Menu Name="Options">
+    <Button Name="Back" />
+  </Menu>
+
+  <Item Name="Credits" Action="Credits"/>
+  <Menu Name="Credits">
+
+  </Menu>
+</Menu>

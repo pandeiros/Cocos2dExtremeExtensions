@@ -143,15 +143,19 @@ bool XMLParser::parseTag (std::string & content) {
 
     // Parse tag.
     while (!isFinished) {
+        XML_READ_ONE_CHAR (content);
+
         switch (state) {
             case XMLParser::TAG_NAME:
-                XML_READ_ONE_CHAR (content);
-
                 if (XML_CHECK_ALFANUM)
                     node.name += ch;
                 else if (XML_CHECK_SPACE) {
                     insertPos = scheme.size ();
                     state = TAG_INSIDE;
+                }
+                else if (XML_CHECK_CLOSE_BRACKET) {
+                    isFinished = true;
+                    node.type = XMLNode::NON_EMPTY_TAG_BEGIN;
                 }
                 else {
                     XX_ERROR_RETURN_FALSE ("Invalid tag name character (line " + std::to_string (lines) + ").");
@@ -159,8 +163,6 @@ bool XMLParser::parseTag (std::string & content) {
                 break;
 
             case XMLParser::NEMPTY_TAG_END:
-                XML_READ_ONE_CHAR (content);
-
                 if (XML_CHECK_ALFANUM)
                     node.name += ch;
                 else if (XML_CHECK_CLOSE_BRACKET) {
@@ -173,8 +175,6 @@ bool XMLParser::parseTag (std::string & content) {
                 break;
 
             case XMLParser::TAG_INSIDE:
-                XML_READ_ONE_CHAR (content);
-
                 if (XML_CHECK_SPACE)
                     continue;
                 else if (XML_CHECK_ALFANUM) {
@@ -255,10 +255,10 @@ bool XMLParser::parseAttribute (std::string & content) {
     bool isFinished = false;
 
     while (!isFinished) {
+        XML_READ_ONE_CHAR (content);
+
         switch (state) {
             case XMLParser::ATTR_NAME:
-                XML_READ_ONE_CHAR (content);
-
                 if (XML_CHECK_ALFANUM)
                     node.name += ch;
                 else if (XML_CHECK_EQUAL) {
@@ -276,8 +276,6 @@ bool XMLParser::parseAttribute (std::string & content) {
                 break;
 
             case XMLParser::ATTR_VALUE:
-                XML_READ_ONE_CHAR (content);
-
                 if (XML_CHECK_QUOTE) {
                     scheme.push_back (node);
                     --nested;
@@ -299,10 +297,10 @@ bool XMLParser::parseComment (std::string & content) {
     bool isFinished = false;
 
     while (!isFinished) {
+        XML_READ_ONE_CHAR (content);
+
         switch (state) {
             case XMLParser::POSSIBLE_COMMENT:
-                XML_READ_ONE_CHAR (content);
-
                 if (XML_CHECK_DASH) {
                     if (XML_CHECK_NEXT_CHAR ('-')) {
                         ++index;
@@ -318,8 +316,6 @@ bool XMLParser::parseComment (std::string & content) {
                 break;
 
             case XMLParser::COMMENT:
-                XML_READ_ONE_CHAR (content);
-
                 if (XML_CHECK_DASH)
                     state = XMLParser::POSSIBLE_COMMENT_END;
                 else
@@ -327,8 +323,6 @@ bool XMLParser::parseComment (std::string & content) {
                 break;
 
             case XMLParser::POSSIBLE_COMMENT_END:
-                XML_READ_ONE_CHAR (content);
-
                 if (XML_CHECK_DASH) {
                     if (XML_CHECK_NEXT_CHAR ('>')) {
                         ++index;

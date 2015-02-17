@@ -1,7 +1,11 @@
 #ifndef __XX_STRING_UTILITIES_H__
 #define __XX_STRING_UTILITIES_H__
 
+#define xxSTR StringUtilities
+
 #include "xxConfig.h"
+
+#include "Utils/MessageHandler/xxMessageHandler.h"
 
 #include <string>
 #include <sstream>
@@ -14,15 +18,15 @@ NS_XX_BEGIN
 */
 class StringUtilities {
 public:
-    // Converts given argument from std::string to Type
+    // Convert given argument from std::string to Type
     template <typename Type>
     static Type convertFromString (const std::string value);
 
-    // Replace file keyword with proper data
-    // \param string keyword : Keyword in file to be found and replaced.
+    // Replace text keyword with proper value
+    // \param string keyword : Keyword in text to be found and replaced.
     // \param string value : String to be inserted instead of the given keyword.
     // \param string & text : Reference to text, in which the replacement is done.
-    static void replaceKeyword (const std::string keyword, const std::string value, std::string & text);
+    static void replaceKeyword (const std::string & keyword, const std::string & value, std::string & text);
 };
 
 
