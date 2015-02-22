@@ -14,11 +14,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     // TESTS HERE ====================================
 
     xx::QuickMenu * qm = xx::xxQM::create ();
-    xx::XMLParser parser = xx::XMLParser ("menu.xml");
-    parser.parse ();
+    xx::xxXML xmlDoc = xx::xxXML ("menu.xml");
 
-    qm->setScheme (parser.getScheme ());
-    
+    qm->setContent (xmlDoc);    
 
     // ===============================================
 

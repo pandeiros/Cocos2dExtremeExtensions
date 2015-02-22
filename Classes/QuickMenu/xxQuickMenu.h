@@ -7,36 +7,110 @@
 
 #include "xxQuickMenuDefines.h"
 #include "ui/UILayout.h"
-#include "Utils/XMLParser/xxXMLParser.h"
+#include "Utils/XMLParser/xxXMLDocument.h"
 
 #include <stack>
 
 NS_XX_BEGIN
 
+/**
+ * QuickMenu provides quick and easy cocos2d::Menu creation based on a XML file.
+ *
+ * Features:
+ *  - (TBA) Support for all different MenuItem types.
+ *  - (TBA) Attributes for Menu and MenuItems.
+ *  - (TBA) Different MenuItems alignment in Menu.
+ *  - (TBA) Nested submenus.
+ *  - (TBA) Transitions between submenus.
+ *
+ * For sample QuickMenu XML file, check TestScenes/QuickMenu/QuickMenuExample.xml
+ */
 class XX_DLL QuickMenu : private cocos2d::Ref {
 public:
+    /** 
+     * Create empty QuickMenu. You can call setContent() and
+     * prepare() methods subsequently.
+     * @return Autoreleased QuickMenu object.
+     */
     CREATE_FUNC (QuickMenu)
-    CREATE_WITH_FILE_FUNC (QuickMenu)
 
-    void prepare (cocos2d::Layer * layer);
+    /**
+     * Create QuickMenu with content. You can call prepare() method
+     * subsequently to assign layer.
+     * @param string filename : Path to file for XMLDocument to load content.
+     * @return Autoreleased QuickMenu object.
+     */
+    XX_CREATE_WITH_FILE_FUNC (QuickMenu)
 
-    void setScheme (XMLParser::Scheme * scheme);
-    bool setSchemeFromFile (const std::string & filename);
+    /**
+     * Create empty QuickMenu with content and layer assigned.
+     * @param Layer layer : Cocos2d layer for menu to be assigned to.
+     * @param string filename : Path to file for XMLDocument to load content.
+     * @return Autoreleased QuickMenu object.
+     */
+    QM_CREATE_FULL_FUNC
+
+    /**
+     * Assign layer and create menu objects.
+     * @param Layer layer : Cocos2d layer for menu to be assigned to.
+     * @return True if success.
+     */
+    bool prepare (cocos2d::Layer * layer);
+
+    /**
+     * Set content of XML document from a reference.
+     * @param XMLDocument xmlDocument : Reference to object to get XML content from.
+     */ 
+    void setContent (xxXML & xmlDocument);
+
+    /**
+     * Set content of XML document from a reference.
+     * @param string filename : Path to file for XMLDocument to load content.
+     */ 
+    bool setContentFromFile (const std::string & filename);
 
 private:
+    // Vector of MenuItems* to be assigned to Menu.
     typedef cocos2d::Vector<cocos2d::MenuItem*> MenuItemVector;
-    typedef std::stack<XMLParser::XMLNode*> PendingNodes;
 
-    INIT_FUNC;
-    INIT_WITH_FILE_FUNC;
+    // Stack of MenuItems* currently being processed and wait for assigment.
+    typedef std::stack<cocos2d::MenuItem*> PendingItems;
 
-    void addNewElement (const std::string type);
-    PendingNodes pendingNodes;
+    /**
+     * Initialize empty QuickMenu with nullptr layer.
+     * @return True if success.
+     */
+    XX_INIT_FUNC;
 
+    /**
+     * Initialize QuickMenu with content from a file.
+     * @param string filename : Path to file for XMLDocument to load content.
+     * @return True if success.
+     */
+    XX_INIT_WITH_FILE_FUNC;
+
+    /**
+     * Add new Menu/Submenu with attributes and transitions.
+     */
+    void addMenu ();
+
+    /**
+     * Add attributes to lastly created Menu.
+     */
+    void addAttribute ();
+
+    // Items waiting for assignment.
+    PendingItems pendingItems;
+
+    // Pointer to cocos2d Layer which holds Menu(s).
     cocos2d::Layer * layer;
-    XMLParser::Scheme scheme;
-    cocos2d::Node * currentNode;
+    
+    // IS CONTENT REALLY NEEDED?
+    // XML Document content with Menu(s) structure.
+    xxXML::Content content;
 
+    // XML Node stack for MenuItems assignment.
+    xxXML::RevAttrStack revAttrStack;
 };
 
 NS_XX_END

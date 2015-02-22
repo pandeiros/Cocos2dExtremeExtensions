@@ -39,11 +39,11 @@
     <ClCompile Include="..\Classes\Utils\MessageHandler\xxMessageHandler.cpp">
       <Filter>Utils\MessageHandler</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Utils\XMLParser\xxXMLParser.cpp">
-      <Filter>Utils\XMLParser</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Utils\StringUtilities\xxStringUtilities.cpp">
       <Filter>Utils\StringUtilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Utils\XMLParser\xxXMLDocument.cpp">
+      <Filter>Utils\XMLParser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,12 +59,6 @@
     <ClInclude Include="..\Classes\Utils\MessageHandler\xxMessageHandler.h">
       <Filter>Utils\MessageHandler</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Utils\XMLParser\xxXMLParser.h">
-      <Filter>Utils\XMLParser</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Utils\XMLParser\xxXMLParserDefines.h">
-      <Filter>Utils\XMLParser</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Utils\StringUtilities\xxStringUtilities.h">
       <Filter>Utils\StringUtilities</Filter>
     </ClInclude>
@@ -76,6 +70,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\xxConfig.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils\XMLParser\xxXMLDocumentDefines.h">
+      <Filter>Utils\XMLParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils\XMLParser\xxXMLDocument.h">
+      <Filter>Utils\XMLParser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

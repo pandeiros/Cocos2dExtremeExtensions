@@ -10,16 +10,16 @@ void MessageHandler::printMessage (const std::string message, Type type) {
             output = message;
             break;
         case _ERROR :
-            output = "\n<!!!> ERROR : " + message + "\n";
+            output = "   <!!!> ERROR : " + message + "\n";
             break;
         case _WARNING:
-            output = "\n<?> Warning : " + message + "\n";
+            output = "   <?> Warning : " + message + "\n";
             break;
         case _INFO:
-            output = "\n   > > >  " + message + "\n";
+            output = "   > Information <  " + message + "\n";
             break;
         case _TIME:
-            output = "=============== Time:\t" + message + " [sec] ====\n";
+            output = "   ============ Time:\t" + message + " [sec] ====\n";
             break;
 
         default:

@@ -1,14 +1,16 @@
 #ifndef __XX_MACROS_H__
 #define __XX_MACROS_H__
 
-// Errors messages
+// Messages
+#define XX_LOG(format, ...) cocos2d::log(format, ##__VA_ARGS__)
+
 #define XX_ERROR(message) xx::MessageHandler::printMessage (message, xx::MessageHandler::_ERROR)
 #define XX_ERROR_RETURN(message) xx::MessageHandler::printMessage (message, xx::MessageHandler::_ERROR); return
 #define XX_ERROR_RETURN_FALSE(message) xx::MessageHandler::printMessage (message, xx::MessageHandler::_ERROR); return false
 
 // Create macros
-#define CREATE_WITH_FILE_FUNC(__TYPE__) \
-static __TYPE__* createWithFile(const std::string & filename) \
+#define XX_CREATE_WITH_FILE_FUNC(__TYPE__) \
+static __TYPE__* create(const std::string & filename) \
 { \
     __TYPE__ * pRet = new(std::nothrow) __TYPE__(); \
     if (pRet && pRet->initWithFile(filename)) \
@@ -25,10 +27,10 @@ static __TYPE__* createWithFile(const std::string & filename) \
 }
 
 // Init macros
-#define INIT_WITH_FILE_FUNC \
+#define XX_INIT_WITH_FILE_FUNC \
 bool initWithFile (const std::string & filename)
 
-#define INIT_FUNC \
+#define XX_INIT_FUNC \
 bool init()
 
 
