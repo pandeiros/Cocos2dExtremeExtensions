@@ -27,54 +27,54 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\QuickMenu\xxQuickMenu.cpp">
+    <ClCompile Include="..\Classes\source\QuickMenu\xxQuickMenu.cpp">
       <Filter>QuickMenu</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ExtremeExtensions.cpp">
+    <ClCompile Include="..\Classes\source\ExtremeExtensions.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Exe</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Utils\MessageHandler\xxMessageHandler.cpp">
+    <ClCompile Include="..\Classes\source\Utils\MessageHandler\xxMessageHandler.cpp">
       <Filter>Utils\MessageHandler</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Utils\StringUtilities\xxStringUtilities.cpp">
+    <ClCompile Include="..\Classes\source\Utils\StringUtilities\xxStringUtilities.cpp">
       <Filter>Utils\StringUtilities</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Utils\XMLParser\xxXMLDocument.cpp">
+    <ClCompile Include="..\Classes\source\Utils\XMLParser\xxXMLDocument.cpp">
       <Filter>Utils\XMLParser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\ExtremeExtensions.h">
+    <ClInclude Include="..\Classes\include\ExtremeExtensions.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\QuickMenu\xxQuickMenu.h">
+    <ClInclude Include="..\Classes\include\QuickMenu\xxQuickMenu.h">
       <Filter>QuickMenu</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
       <Filter>Exe</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Utils\MessageHandler\xxMessageHandler.h">
+    <ClInclude Include="..\Classes\include\Utils\MessageHandler\xxMessageHandler.h">
       <Filter>Utils\MessageHandler</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Utils\StringUtilities\xxStringUtilities.h">
+    <ClInclude Include="..\Classes\include\Utils\StringUtilities\xxStringUtilities.h">
       <Filter>Utils\StringUtilities</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\QuickMenu\xxQuickMenuDefines.h">
+    <ClInclude Include="..\Classes\include\QuickMenu\xxQuickMenuDefines.h">
       <Filter>QuickMenu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\xxMacros.h">
+    <ClInclude Include="..\Classes\include\xxMacros.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\xxConfig.h">
+    <ClInclude Include="..\Classes\include\xxConfig.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Utils\XMLParser\xxXMLDocumentDefines.h">
+    <ClInclude Include="..\Classes\include\Utils\XMLParser\xxXMLDocumentDefines.h">
       <Filter>Utils\XMLParser</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Utils\XMLParser\xxXMLDocument.h">
+    <ClInclude Include="..\Classes\include\Utils\XMLParser\xxXMLDocument.h">
       <Filter>Utils\XMLParser</Filter>
     </ClInclude>
   </ItemGroup>

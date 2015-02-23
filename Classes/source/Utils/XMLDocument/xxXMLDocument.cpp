@@ -1,4 +1,4 @@
-#include "xxXMLDocument.h"
+#include "../../../include/Utils/XMLDocument/xxXMLDocument.h"
 
 USING_NS_XX;
 

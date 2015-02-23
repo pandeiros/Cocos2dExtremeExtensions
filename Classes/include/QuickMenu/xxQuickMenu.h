@@ -3,11 +3,11 @@
 
 #define xxQM QuickMenu
 
-#include "xxConfig.h"
+#include "../xxConfig.h"
 
 #include "xxQuickMenuDefines.h"
+#include "../Utils/XMLDocument/xxXMLDocument.h"
 #include "ui/UILayout.h"
-#include "Utils/XMLParser/xxXMLDocument.h"
 
 #include <stack>
 
@@ -105,7 +105,7 @@ private:
     // Pointer to cocos2d Layer which holds Menu(s).
     cocos2d::Layer * layer;
     
-    // IS CONTENT REALLY NEEDED?
+    // TODO IS CONTENT REALLY NEEDED?
     // XML Document content with Menu(s) structure.
     xxXML::Content content;
 

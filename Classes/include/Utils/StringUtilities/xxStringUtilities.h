@@ -3,9 +3,9 @@
 
 #define xxSTR StringUtilities
 
-#include "xxConfig.h"
+#include "../../xxConfig.h"
 
-#include "Utils/MessageHandler/xxMessageHandler.h"
+#include "../MessageHandler/xxMessageHandler.h"
 
 #include <string>
 #include <sstream>

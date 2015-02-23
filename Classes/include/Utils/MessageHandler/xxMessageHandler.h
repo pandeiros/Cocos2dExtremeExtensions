@@ -3,7 +3,7 @@
 
 #define xxMSG MessageHandler
 
-#include "xxConfig.h"
+#include "../../xxConfig.h"
 
 #include <iostream>
 #include <iomanip>

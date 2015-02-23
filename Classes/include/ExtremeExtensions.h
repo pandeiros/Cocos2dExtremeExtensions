@@ -11,7 +11,7 @@
 #include "QuickMenu/xxQuickMenu.h"
 
 // Utilities.
-#include "Utils/XMLParser/xxXMLDocument.h"
+#include "Utils/XMLDocument/xxXMLDocument.h"
 #include "Utils/MessageHandler/xxMessageHandler.h"
 #include "Utils/StringUtilities/xxStringUtilities.h"
 

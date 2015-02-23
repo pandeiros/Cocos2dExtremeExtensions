@@ -1,4 +1,4 @@
-#include "xxQuickMenu.h"
+#include "../../include/QuickMenu/xxQuickMenu.h"
 
 USING_NS_XX;
 

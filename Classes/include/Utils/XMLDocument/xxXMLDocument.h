@@ -3,10 +3,10 @@
 
 #define xxXML XMLDocument
 
-#include "xxConfig.h"
+#include "../../xxConfig.h"
 
 #include "xxXMLDocumentDefines.h"
-#include "Utils/MessageHandler/xxMessageHandler.h"
+#include "../MessageHandler/xxMessageHandler.h"
 
 #include <string>
 #include <vector>
