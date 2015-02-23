@@ -16,6 +16,13 @@
 
 NS_XX_BEGIN
 
+/**
+ * XMLDocument contains of:
+ *  - XML Parser which stores content of a document and control 
+ *    proper XML syntax,
+ *  - (TBA) XML Schema to check different classes' set of available
+ *    elements and their attributes.
+ */
 class XX_DLL XMLDocument {
 public:
     // Types of nodes to be stored in the XML content.
@@ -29,49 +36,80 @@ public:
         std::string value = "";
     };
 
-    // Constructor with filename argument.
-    // \param string filename : Name of the XML document.
-    XMLDocument (const std::string filename);
-
     // Main storage type for XML Nodes.
     typedef std::vector <XMLNode> Content;
 
+    // Reverse Attribute Stack.
     // Contains XML Nodes but in different order :
-    // First come the attributes from the last one to the first and
-    // then the node itself. Nodes are put in normal order.
+    // First come the attributes of the node from the last one to the first
+    // and then the node itself. Nodes are put in normal order.
     typedef std::stack <XMLNode*> RevAttrStack;
 
-    // Return pointer to the XML Content.
+    /**
+     * Constructor with filename argument.
+     * @param string filename : Name of the XML document.
+     */
+    XMLDocument (const std::string filename);
+
+    /**
+     * Load XML Schema from file and check Content structure.
+     * @param string filename : Path to XML Schema file.
+     */
+    void addSchema (const std::string filename);
+
+    /**
+     * Content getter.
+     * @return Pointer to XMLDocument::Content
+     */
     Content * getContent ();
 
-    // Return pointer to node stack.
+    /**
+     * Reverse Attribute Stack getter.
+     * @return Pointer to XMLDocument::RevAttrStack
+     */
     RevAttrStack * getRevAttrStack ();
 
 private:
 
     /**
-     * XML file parser. Saves XML document in a vector of XMLNodes (linear algorithm, linear storage).
+     * XML file parser. Saves XML document in a vector of 
+     * XMLNodes (linear algorithm, linear storage).
      */
     class XX_DLL XMLParser {
     public:
-        // Constructor with filename argument.
-        // \param string filename : Name of the file to be parsed.
+        /**
+         * Constructor with filename argument.
+         * @param string filename : Name of the file to be parsed.
+         */
         XMLParser (const std::string filename);
 
-        // Prints debug information about the XML structure via MessageHandler class.
+        /**
+         * Prints debug information about the XML structure via MessageHandler class.
+         */          
         void printAll ();
 
-        // Return pointer to the XML Content.
+        /**
+         * Content getter.
+         * @return Pointer to XMLDocument::Content
+         */
         Content * getContent ();
 
-        // Return pointer to node stack.
+        /**
+         * Reverse Attribute Stack getter.
+         * @return Pointer to XMLDocument::RevAttrStack
+         */
         RevAttrStack * getRevAttrStack ();
 
     private:
-        // Parse given file. Returns true if operation was successful, false otherwise.
+        /**
+         * Parse given file. 
+         * @return True if success.
+         */
         bool parse ();
 
-        // Prepare RevAttrStack based on Content.
+        /**
+         * Prepare RevAttrStack based on Content.
+         */
         void prepareRevAttrStack ();
 
         /// Specific parsing methods sharing the same 'content' with XML document.
@@ -83,6 +121,9 @@ private:
         bool parseComment (std::string & content);      // Parse comment.
         inline bool checkCharacter (const char c);
 
+        // Name of the file to be parsed.
+        std::string mFilename = "";
+
         // XMLNodes storage for a particular instance of this class.
         Content content;
 
@@ -93,10 +134,7 @@ private:
         enum State {
             NONE, TAG_NAME, TAG_INSIDE, ATTR_NAME, ATTR_VALUE, NEMPTY_TAG_END,
             POSSIBLE_COMMENT, COMMENT, POSSIBLE_COMMENT_END,
-        };
-
-        // Name of the file to be parsed.
-        std::string mFilename = "";
+        };        
 
         /// Parsing variables.
 
@@ -111,12 +149,41 @@ private:
 
     };  // XMLParser class.
 
+    /**
+     * XML Schema verifier. 
+     */
     class XX_DLL XMLSchema {
+    public:
+        /**
+         * Set Content to verify.
+         */
+        void setContent (Content * content);
 
+        /**
+         * Load schema from file and verify content.
+         * @param string filename : Path to XML Schema file.
+         * @return True if success.
+         */
+        bool verify (const std::string filename);
+
+    private:
+        /**
+         * Verify previously set content with schema.
+         * @return True if success.
+         */
+        bool verifyContent ();
+
+        // Pointer to content of XML document
+        Content * content;
+
+        // Content of schema itself.
+        Content schema;
     };
 
+    // XML parser with content of a file.
     XMLParser xmlParser;
 
+    // XML content verifier.
     XMLSchema xmlSchema;
 };
 

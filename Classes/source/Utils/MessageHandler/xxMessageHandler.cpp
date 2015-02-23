@@ -2,32 +2,21 @@
 
 USING_NS_XX;
 
+// Static init.
+std::map <xxMSG::Type, std::string> xxMSG::MsgHeaders = xxMSG::fillMsgHeaders ();
+
 void MessageHandler::printMessage (const std::string message, Type type) {
     std::string output = "";
 
-    switch (type) {
-        case _NO_FORMAT:
-            output = message;
-            break;
-        case _ERROR :
-            output = "   <!!!> ERROR : " + message + "\n";
-            break;
-        case _WARNING:
-            output = "   <?> Warning : " + message + "\n";
-            break;
-        case _INFO:
-            output = "   > Information <  " + message + "\n";
-            break;
-        case _TIME:
-            output = "   ============ Time:\t" + message + " [sec] ====\n";
-            break;
+    output += MsgHeaders[type] + message;
 
-        default:
-            break;
-    }
+    if (type == _TIME)
+        output += " [sec] ====";
+
+    output += "\n";
 
 #ifdef COCOS2D_DEBUG
-    CCLOG (output.c_str());
+    XX_LOG (output.c_str ());
 #endif
 }
 
@@ -39,4 +28,16 @@ void MessageHandler::printDebugSection (const std::string title, bool isBegin) {
         std::cout << std::setw (10 + title.size ()) << std::setfill ('=') << "" << " End of section ===\n\n";
         std::cout << std::setfill (' ');
     }
+}
+
+std::map<MessageHandler::Type, std::string> MessageHandler::fillMsgHeaders () {
+    std::map <MessageHandler::Type, std::string> newMap;
+
+    newMap[MessageHandler::_NO_FORMAT] = "   ";
+    newMap[MessageHandler::_ERROR] = "   <!!!> ERROR : ";
+    newMap[MessageHandler::_INFO] = "   > Information <  ";
+    newMap[MessageHandler::_WARNING] = "   <?> Warning : ";
+    newMap[MessageHandler::_TIME] = "   ============ Time:\t";
+
+    return newMap;
 }

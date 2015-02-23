@@ -6,8 +6,7 @@ void StringUtilities::replaceKeyword (const std::string & keyword, const std::st
     // If keyword is not found, print an error.
     unsigned int keywordPos = text.find (keyword);
     if (keywordPos == std::string::npos) {
-        XX_ERROR ("Keyword '" + keyword + "' cannot be found!");
-        return;
+        XX_ERROR_RETURN ("Keyword '" + keyword + "' cannot be found!");
     }
 
     // Otherwise...

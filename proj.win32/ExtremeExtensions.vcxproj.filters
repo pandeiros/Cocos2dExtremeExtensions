@@ -13,9 +13,6 @@
     <Filter Include="Core">
       <UniqueIdentifier>{48221de5-5644-472b-8aa5-3fe4c2dfda19}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utils\XMLParser">
-      <UniqueIdentifier>{70df85cb-6c94-457d-bece-689e95052c94}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utils\MessageHandler">
       <UniqueIdentifier>{65e71e25-a2cc-4206-8ea8-3bb6df5ae98e}</UniqueIdentifier>
     </Filter>
@@ -24,6 +21,9 @@
     </Filter>
     <Filter Include="Exe">
       <UniqueIdentifier>{966eba38-5802-4e5a-9ad3-53a7f95839d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\XMLDocument">
+      <UniqueIdentifier>{70df85cb-6c94-457d-bece-689e95052c94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,8 +42,8 @@
     <ClCompile Include="..\Classes\source\Utils\StringUtilities\xxStringUtilities.cpp">
       <Filter>Utils\StringUtilities</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\source\Utils\XMLParser\xxXMLDocument.cpp">
-      <Filter>Utils\XMLParser</Filter>
+    <ClCompile Include="..\Classes\source\Utils\XMLDocument\xxXMLDocument.cpp">
+      <Filter>Utils\XMLDocument</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,11 +71,11 @@
     <ClInclude Include="..\Classes\include\xxConfig.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\include\Utils\XMLParser\xxXMLDocumentDefines.h">
-      <Filter>Utils\XMLParser</Filter>
+    <ClInclude Include="..\Classes\include\Utils\XMLDocument\xxXMLDocument.h">
+      <Filter>Utils\XMLDocument</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\include\Utils\XMLParser\xxXMLDocument.h">
-      <Filter>Utils\XMLParser</Filter>
+    <ClInclude Include="..\Classes\include\Utils\XMLDocument\xxXMLDocumentDefines.h">
+      <Filter>Utils\XMLDocument</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

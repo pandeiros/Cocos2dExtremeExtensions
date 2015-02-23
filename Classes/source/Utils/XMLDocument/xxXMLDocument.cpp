@@ -9,6 +9,10 @@ XMLDocument::XMLDocument (const std::string filename) : xmlParser (filename) {
 
 }
 
+void XMLDocument::addSchema (const std::string filename) {
+
+}
+
 XMLDocument::Content * XMLDocument::getContent () {
     return xmlParser.getContent ();
 }
@@ -408,3 +412,22 @@ XMLDocument::RevAttrStack * XMLDocument::XMLParser::getRevAttrStack () {
 // =======================
 // XMLSchema class methods
 // =======================
+void XMLDocument::XMLSchema::setContent (Content * content) {
+    this->content = content;
+}
+
+bool XMLDocument::XMLSchema::verify (const std::string filename) {
+    XMLDocument xmlDoc (filename);
+    if (xmlDoc.getContent ()->empty ()) {
+        XX_ERROR_RETURN_FALSE ("Schema verification failed.");
+    }
+    else {
+        this->schema = *xmlDoc.getContent ();
+    }
+
+    return this->verifyContent();
+}
+
+bool XMLDocument::XMLSchema::verifyContent () {
+    return true;
+}

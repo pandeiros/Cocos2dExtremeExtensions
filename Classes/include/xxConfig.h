@@ -4,11 +4,13 @@
 // Exclude rarely-used stuff from Windows headers
 #define WIN32_LEAN_AND_MEAN
 
+// Cocos2D lib
 #include "cocos2d.h"
 
-// Shared, useful macros.
+// Shared, useful macros
 #include "xxMacros.h"
 
+// Defines for '.exe' compilation
 #ifdef XX_EXE
     // Windows Header Files:
     #include <windows.h>
@@ -18,9 +20,8 @@
     #include "CCStdC.h"
 #endif  // XX_EXE
 
-
 // Versions
-#define XX_VERSION 0x00000105
+#define XX_VERSION 0x00000107
 #define MIN_REQUIRED_CC_VERSION 0x00030400
 #define MAX_TESTED_CC_VERSION 0x00030400
 

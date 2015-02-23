@@ -21,12 +21,14 @@ static QuickMenu * create(cocos2d::Layer * layer, const std::string filename) \
 
 #define QM_GET_TOP_NODE XMLDocument::XMLNode * node = revAttrStack.top()
 
+
 // Menu
 #define QM_EMPTY_MENU \
     cocos2d::Menu * newMenu = cocos2d::Menu::create()
 
 #define QM_MENU_WITH_VEC(__VEC__) \
     cocos2d::Menu * newMenu = cocos2d::Menu::createWithArray(__VEC__)
+
 
 // MenuItemImage
 #define QM_ITEM_IMAGE \
