@@ -52,7 +52,7 @@ public:
 
     /**
      * Assign layer and create menu objects.
-     * @param Layer layer : Cocos2d layer for menu to be assigned to.
+     * @param Layer* layer : Cocos2d layer for menu to be assigned to.
      * @return True if success.
      */
     bool prepare (cocos2d::Layer * layer);
@@ -76,6 +76,11 @@ private:
     // Stack of MenuItems* currently being processed and wait for assigment.
     typedef std::stack<cocos2d::MenuItem*> PendingItems;
 
+    // Shorter forms.
+    typedef XMLDocument::XMLNode Node;
+    typedef cocos2d::MenuItemImage MIImage;
+    typedef cocos2d::MenuItemFont MIFont;
+
     /**
      * Initialize empty QuickMenu with nullptr layer.
      * @return True if success.
@@ -95,9 +100,24 @@ private:
     void addMenu ();
 
     /**
-     * Add attributes to lastly created Menu.
+     * Add new MenuItem with attributes.
      */
-    void addAttribute ();
+    void addMenuItem ();
+
+    /**
+     * Add common attributes to lastly created MenuItem.
+     */
+    void addCommonAttributes ();
+
+    /**
+     * Add attributes to lastly created MenuItemImage.
+     */
+    void addImageAttributes (MIImage * item);
+
+    /**
+     * Add attributes to lastly created MenuItemFont.
+     */
+    void addFontAttributes (MIFont * item);
 
     // Items waiting for assignment.
     PendingItems pendingItems;

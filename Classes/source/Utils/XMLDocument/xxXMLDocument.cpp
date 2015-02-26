@@ -6,11 +6,19 @@ USING_NS_XX;
 // XMLDocument class methods
 // =========================
 XMLDocument::XMLDocument (const std::string filename) : xmlParser (filename) {
-
 }
 
-void XMLDocument::addSchema (const std::string filename) {
+bool XMLDocument::verifyWithSchema (const std::string filename) {
+    XMLParser schemaParser (filename);
+    
+    if (schemaParser.getContent ()->empty ()) {
+        XX_ERROR_RETURN_FALSE ("Schema verification failed! (filename: " + filename + ")");
+    }
 
+    this->xmlSchema.setContent (xmlParser.getContent ());
+    this->xmlSchema.setSchema (schemaParser.getContent ());
+
+    return xmlSchema.verify ();
 }
 
 XMLDocument::Content * XMLDocument::getContent () {
@@ -31,6 +39,32 @@ XMLDocument::XMLParser::XMLParser (const std::string filename) : mFilename (file
     }
     else
         this->prepareRevAttrStack ();
+}
+
+void XMLDocument::XMLParser::printAll () {
+    std::string indent = "";
+    for (XMLNode & node : content) {
+        std::string attrIndent = "";
+
+        if (node.type == XMLNode::ATTRIBUTE)
+            attrIndent = "  + ";
+        else if (node.type == XMLNode::NON_EMPTY_TAG_END)
+            indent = indent.substr (0, indent.size () - 3);
+
+        MessageHandler::printMessage (indent + attrIndent + node.name + " " + node.value, MessageHandler::_NO_FORMAT);
+
+        if (node.type == XMLNode::NON_EMPTY_TAG_BEGIN)
+            indent += "   ";
+
+    }
+}
+
+XMLDocument::Content * XMLDocument::XMLParser::getContent () {
+    return &content;
+}
+
+XMLDocument::RevAttrStack * XMLDocument::XMLParser::getRevAttrStack () {
+    return &revAttrStack;
 }
 
 bool XMLDocument::XMLParser::parse () {
@@ -109,7 +143,7 @@ bool XMLDocument::XMLParser::parseContent (std::string & content) {
         }
 
         // If EOF, then exit.
-        if (XML_CHECK_STOP)
+        if (this->checkIfStop())
             return true;
 
         // Check for opening bracket - first allowed char.
@@ -121,7 +155,7 @@ bool XMLDocument::XMLParser::parseContent (std::string & content) {
                 isHeader = true;
 
                 XML_READ_ONE_CHAR (content);
-                if (XML_CHECK_ELEM_NAME) {
+                if (this->checkForElementName()) {
                     if (!this->parseTag (content))
                         return false;
                 }
@@ -137,7 +171,7 @@ bool XMLDocument::XMLParser::parseContent (std::string & content) {
             }
 
             // Tag.
-            else if (XML_CHECK_ELEM_NAME || checkCharacter ('/')) {
+            else if (this->checkForElementName() || checkCharacter ('/')) {
                 if (!this->parseTag (content))
                     return false;
             }
@@ -182,7 +216,7 @@ bool XMLDocument::XMLParser::parseTag (std::string & content) {
 
         switch (state) {
             case XMLParser::TAG_NAME:
-                if (XML_CHECK_ELEM_NAME)
+                if (this->checkForElementName())
                     node.name += ch;
                 else if (checkCharacter (' ')) {
                     insertPos = this->content.size ();
@@ -198,7 +232,7 @@ bool XMLDocument::XMLParser::parseTag (std::string & content) {
                 break;
 
             case XMLParser::NEMPTY_TAG_END:
-                if (XML_CHECK_ELEM_NAME)
+                if (this->checkForElementName())
                     node.name += ch;
                 else if (checkCharacter ('>')) {
                     node.type = XMLNode::NON_EMPTY_TAG_END;
@@ -212,7 +246,7 @@ bool XMLDocument::XMLParser::parseTag (std::string & content) {
             case XMLParser::TAG_INSIDE:
                 if (checkCharacter (' '))
                     continue;
-                else if (XML_CHECK_ELEM_NAME) {
+                else if (this->checkForElementName()) {
                     if (!this->parseAttribute (content))
                         return false;
 
@@ -231,7 +265,7 @@ bool XMLDocument::XMLParser::parseTag (std::string & content) {
                     if (isHeader) {
                         XX_ERROR_RETURN_FALSE ("Wrong header tag type! Has to be 'empty-tag' (line " + std::to_string (lines) + ").");
                     }
-                    else if (XML_CHECK_NEXT_CHAR ('>')) {
+                    else if (this->checkNextCharacter (content, '>')) {
                         ++index;
                         node.type = XMLNode::EMPTY_TAG;
 
@@ -247,7 +281,7 @@ bool XMLDocument::XMLParser::parseTag (std::string & content) {
                     if (!isHeader) {
                         XX_ERROR_RETURN_FALSE ("Header type tags are not allowed here (line " + std::to_string (lines) + ").");
                     }
-                    else if (XML_CHECK_NEXT_CHAR ('>')) {
+                    else if (this->checkNextCharacter (content, '>')) {
                         ++index;
                         node.type = XMLNode::HEADER;
 
@@ -294,10 +328,10 @@ bool XMLDocument::XMLParser::parseAttribute (std::string & content) {
 
         switch (state) {
             case XMLParser::ATTR_NAME:
-                if (XML_CHECK_ELEM_NAME)
+                if (this->checkForElementName())
                     node.name += ch;
                 else if (checkCharacter ('=')) {
-                    if (XML_CHECK_NEXT_CHAR ('"')) {
+                    if (this->checkNextCharacter (content, '"')) {
                         ++index;
                         state = ATTR_VALUE;
                     }
@@ -337,7 +371,7 @@ bool XMLDocument::XMLParser::parseComment (std::string & content) {
         switch (state) {
             case XMLParser::POSSIBLE_COMMENT:
                 if (checkCharacter ('-')) {
-                    if (XML_CHECK_NEXT_CHAR ('-')) {
+                    if (this->checkNextCharacter (content, '-')) {
                         ++index;
                         state = XMLParser::COMMENT;
                     }
@@ -359,7 +393,7 @@ bool XMLDocument::XMLParser::parseComment (std::string & content) {
 
             case XMLParser::POSSIBLE_COMMENT_END:
                 if (checkCharacter ('-')) {
-                    if (XML_CHECK_NEXT_CHAR ('>')) {
+                    if (this->checkNextCharacter (content, '>')) {
                         ++index;
                         isFinished = true;
                         break;
@@ -383,30 +417,21 @@ bool XMLDocument::XMLParser::checkCharacter (const char c) {
     return (this->ch == c ? true : false);
 }
 
-void XMLDocument::XMLParser::printAll () {
-    std::string indent = "";
-    for (XMLNode & node : content) {
-        std::string attrIndent = "";
-
-        if (node.type == XMLNode::ATTRIBUTE)
-            attrIndent = "  + ";
-        else if (node.type == XMLNode::NON_EMPTY_TAG_END)
-            indent = indent.substr (0, indent.size () - 3);
-
-        MessageHandler::printMessage (indent + attrIndent + node.name + " " + node.value, MessageHandler::_NO_FORMAT);
-
-        if (node.type == XMLNode::NON_EMPTY_TAG_BEGIN)
-            indent += "   ";
-
-    }
+bool  XMLDocument::XMLParser::checkNextCharacter (const std::string content, const char c) {
+    return ((index < content.size () - 1 && c == content[index]) ? true : false);
 }
 
-XMLDocument::Content * XMLDocument::XMLParser::getContent () {
-    return &content;
+bool  XMLDocument::XMLParser::checkForElementName () {
+    return (((ch >= 48 && ch <= 57) ||
+        (ch >= 65 && ch <= 90) ||
+        (ch >= 97 && ch <= 122) ||
+        (ch == '-') ||
+        (ch == '.') ||
+        (ch == '_')) ? true : false);
 }
 
-XMLDocument::RevAttrStack * XMLDocument::XMLParser::getRevAttrStack () {
-    return &revAttrStack;
+bool  XMLDocument::XMLParser::checkIfStop () {
+    return ((eof && nested == 0) ? true : false);
 }
 
 // =======================
@@ -416,18 +441,13 @@ void XMLDocument::XMLSchema::setContent (Content * content) {
     this->content = content;
 }
 
-bool XMLDocument::XMLSchema::verify (const std::string filename) {
-    XMLDocument xmlDoc (filename);
-    if (xmlDoc.getContent ()->empty ()) {
-        XX_ERROR_RETURN_FALSE ("Schema verification failed.");
-    }
-    else {
-        this->schema = *xmlDoc.getContent ();
-    }
-
-    return this->verifyContent();
+void XMLDocument::XMLSchema::setSchema (Content * schema) {
+    this->schema = *schema;
 }
 
-bool XMLDocument::XMLSchema::verifyContent () {
+bool XMLDocument::XMLSchema::verify () {
+    
+
     return true;
 }
+

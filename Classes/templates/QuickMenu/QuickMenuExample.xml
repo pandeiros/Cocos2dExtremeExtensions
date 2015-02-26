@@ -5,20 +5,20 @@
     featuring most of the functionalities and attributes it offers.
 -->
 
-<!-- Main menu with it's attributes. -->
-<Menu Align="Vertical" Padding="10">
+<!-- Main menu with it's attributes. This node is OBLIGATORY as a root node. -->
+<Menu Align="Vertical" Padding="10" Name="MainMenu">
   
   <!-- Sample label -->
-  <ItemLabel />
+  <Label Text="Main Menu"/>
   
   <!-- Item with callback and graphics -->
-  <ItemImage Normal="CloseNormal.png" Selected="CloseSelected.png" Callback="new_game" />
+  <Image Normal="CloseNormal.png" Selected="CloseSelected.png" Callback="new_game" />
 
   <!-- Item leading to submenu -->
-  <ItemImage Type="">
+  <Image>
     <Menu Name="Options">
-      <ItemImage />
+      <Image />
     </Menu>
-  </ItemImage>
+  </Image>
   
 </Menu>

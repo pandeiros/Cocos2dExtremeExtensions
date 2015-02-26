@@ -14,7 +14,7 @@
  * Extreme Extensions pack contains many tools simplifying creation
  * of commonly used features in game development. The maing goal is
  * to reduce the amount of work on non-gameplay and backend features 
- * to minimum. It is a great pack to use on game jams and compos.
+ * to minimum. It is a great pack to use on game jams.
  *
  * Content:
  *  - QuickMenu : Easy cocos2d::Menu creation based on a XML file.

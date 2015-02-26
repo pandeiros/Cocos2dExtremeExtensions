@@ -54,8 +54,9 @@ public:
     /**
      * Load XML Schema from file and check Content structure.
      * @param string filename : Path to XML Schema file.
+     * @return True if success.
      */
-    void addSchema (const std::string filename);
+    bool verifyWithSchema (const std::string filename);
 
     /**
      * Content getter.
@@ -120,6 +121,9 @@ private:
         bool parseAttribute (std::string & content);    // Parse attribute and its value.
         bool parseComment (std::string & content);      // Parse comment.
         inline bool checkCharacter (const char c);
+        inline bool checkNextCharacter (const std::string content, const char c);
+        inline bool checkForElementName ();
+        inline bool checkIfStop ();
 
         // Name of the file to be parsed.
         std::string mFilename = "";
@@ -150,29 +154,32 @@ private:
     };  // XMLParser class.
 
     /**
-     * XML Schema verifier. 
+     * XML Schema verifier. (TBA) Check tags and their attributes, types
+     * of data, nesting rules, default and obligatory values.
      */
     class XX_DLL XMLSchema {
     public:
         /**
          * Set Content to verify.
+         * @param Content* content : XML Document content to verify by Schema.
+         * @see XMLDocument::XMLSchema::setSchema()
          */
         void setContent (Content * content);
 
         /**
-         * Load schema from file and verify content.
-         * @param string filename : Path to XML Schema file.
+        * Set Schema for verification process.
+        * @param Content* schema : Pointer XML Schema for content verification.
+        * @see XMLDocument::XMLSchema::setContent()
+        */
+        void setSchema (Content * schema);
+
+        /**
+         * Verify content with given Schema.
          * @return True if success.
          */
-        bool verify (const std::string filename);
+        bool verify ();
 
     private:
-        /**
-         * Verify previously set content with schema.
-         * @return True if success.
-         */
-        bool verifyContent ();
-
         // Pointer to content of XML document
         Content * content;
 

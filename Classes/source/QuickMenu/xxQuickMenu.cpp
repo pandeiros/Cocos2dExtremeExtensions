@@ -12,20 +12,25 @@ bool QuickMenu::prepare (cocos2d::Layer * layer) {
 
     this->layer = layer;
 
-    //if (revAttrStack.top ()->name == "Menu")
+    if (revAttrStack.top ()->name == "Menu")
+        this->addMenu ();
+    else {
+        XX_ERROR_RETURN_FALSE ("<QuickMenu> Invalid root closing tag. Preparing menu failed.");
+    }
+
 
     // === TEMP
     /*MenuItemVector vec;
     for (int i = 0; i < 10; ++i) {
-        QM_ITEM_IMAGE_N_S ("CloseNormal.png", "CloseSelected.png");
-        vec.pushBack (newItem);
+    QM_ITEM_IMAGE_N_S ("CloseNormal.png", "CloseSelected.png");
+    vec.pushBack (newItem);
     }
     QM_MENU_WITH_VEC (vec);
     newMenu->alignItemsVerticallyWithPadding (10.f);
     newMenu->alignItemsInColumns (1, 2, 4, 3, NULL);
     layer->addChild (newMenu, 10);    */
     // ===
-    
+
     return true;
 }
 
@@ -60,36 +65,67 @@ void QuickMenu::addMenu () {
     revAttrStack.pop ();
 
     while (true) {
-        QM_GET_TOP_NODE;
-        
-        // New menu item.
-        if (XML_TAG_END (node, "Menu")) {
-            addMenu ();
-            // !!!! REGISTER TRANSISTIONS
+        Node * node = revAttrStack.top ();
+
+        // Menu tag.
+        if (node->name == "Menu") {
+
+            // New menu -> recursive call.
+            if (node->type == Node::NON_EMPTY_TAG_END) {
+                addMenu ();
+                // !!!! REGISTER TRANSISTIONS
+            }
+            // Register menu and return.
+            else if (node->type == Node::NON_EMPTY_TAG_BEGIN) {
+
+                // ????
+            }
         }
-        else if (XML_TAG_NEMPTY (node, "Menu")) {
+
+        // MenuItem tag
+        else if (node->type == Node::NON_EMPTY_TAG_BEGIN || 
+                 node->type == Node::EMPTY_TAG) {
+            this->addMenuItem ();
+            
 
             // ????
         }
-        else if (XML_IS_TAG_BOTH (node)) {
-            QM_ITEM_IMAGE;
-            pendingItems.push (newItem);
-            
-            // ????
-        }
-        else if (XML_IS_ATTR (node)) {
-            addAttribute ();
-        }
-        else if (XML_TAG_END (node, "Item")) {
+        else if (node->name == "Item" && node->type == Node::NON_EMPTY_TAG_END) {
             continue;
         }
-        
+
     }
 
     // !!!!! REMEMBER TO REVERSE THE ITEM VECTOR
 
 }
 
-void QuickMenu::addAttribute () {
-    
+void QuickMenu::addMenuItem () {
+    // Get MenuItem tag and pop it.
+    Node * node = revAttrStack.top ();
+    revAttrStack.pop ();
+
+    if (node->name == "Image") {
+        MIImage * newItem = MIImage::create ();
+        this->addImageAttributes (newItem);
+        pendingItems.push (newItem);
+    }
+    else if (node->name == "Label") {
+        MIFont * newItem = MIFont::create ("TEXT NOT FOUND");
+        this->addFontAttributes (newItem);
+        pendingItems.push (newItem);
+    }
 }
+
+void QuickMenu::addImageAttributes (MIImage * item) {
+
+}
+
+void QuickMenu::addFontAttributes (MIFont * item) {
+
+}
+
+void QuickMenu::addCommonAttributes () {
+
+}
+
