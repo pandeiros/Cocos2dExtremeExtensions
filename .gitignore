@@ -6,6 +6,9 @@ cocos2d/*
 .cocos-project.json
 CMakeLists.txt
 
+# Documentation
+doc/*
+
 # Custom excludes
 *.tlog
 *.exp
