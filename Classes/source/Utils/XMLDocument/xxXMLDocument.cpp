@@ -10,7 +10,7 @@ XMLDocument::XMLDocument (const std::string filename) : xmlParser (filename) {
 
 bool XMLDocument::verifyWithSchema (const std::string filename) {
     XMLParser schemaParser (filename);
-    
+
     if (schemaParser.getContent ()->empty ()) {
         XX_ERROR_RETURN_FALSE ("Schema verification failed! (filename: " + filename + ")");
     }
@@ -27,6 +27,10 @@ XMLDocument::Content * XMLDocument::getContent () {
 
 XMLDocument::RevAttrStack * XMLDocument::getRevAttrStack () {
     return xmlParser.getRevAttrStack ();
+}
+
+void XMLDocument::printAll () {
+    xmlParser.printAll ();
 }
 
 // =======================
@@ -82,17 +86,17 @@ bool XMLDocument::XMLParser::parse () {
 }
 
 void XMLDocument::XMLParser::prepareRevAttrStack () {
-    std::stack <XMLNode*> tempStack;
+    RevAttrStack tempStack;
 
     for (XMLNode & node : content) {
         if (node.type == XMLNode::HEADER ||
-            node.type == XMLNode::EMPTY_TAG ||
             node.type == XMLNode::ATTRIBUTE) {
-            tempStack.push (&node);
+            tempStack.push (node);
         }
-        else if (tempStack.empty () &&
-                 node.type == XMLNode::NON_EMPTY_TAG_BEGIN) {
-            tempStack.push (&node);
+        else if (tempStack.empty () && (
+            node.type == XMLNode::NON_EMPTY_TAG_BEGIN ||
+            node.type == XMLNode::EMPTY_TAG)) {
+            tempStack.push (node);
         }
         else if (!tempStack.empty () && (
             node.type == XMLNode::EMPTY_TAG ||
@@ -103,8 +107,13 @@ void XMLDocument::XMLParser::prepareRevAttrStack () {
                 tempStack.pop ();
             }
 
-            tempStack.push (&node);
+            tempStack.push (node);
         }
+    }
+
+    while (!tempStack.empty ()) {
+        revAttrStack.push (tempStack.top ());
+        tempStack.pop ();
     }
 }
 
@@ -446,7 +455,7 @@ void XMLDocument::XMLSchema::setSchema (Content * schema) {
 }
 
 bool XMLDocument::XMLSchema::verify () {
-    
+
 
     return true;
 }

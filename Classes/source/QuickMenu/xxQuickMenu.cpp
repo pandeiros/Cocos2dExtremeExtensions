@@ -2,6 +2,9 @@
 
 USING_NS_XX;
 
+// =========================
+// QuickMenu class methods
+// =========================
 bool QuickMenu::prepare (cocos2d::Layer * layer) {
     if (!layer) {
         XX_ERROR_RETURN_FALSE ("<QuickMenu> Requested menu creation on invalid layer.");
@@ -12,7 +15,7 @@ bool QuickMenu::prepare (cocos2d::Layer * layer) {
 
     this->layer = layer;
 
-    if (revAttrStack.top ()->name == "Menu")
+    if (revAttrStack.top ().name == "Menu")
         this->addMenu ();
     else {
         XX_ERROR_RETURN_FALSE ("<QuickMenu> Invalid root closing tag. Preparing menu failed.");
@@ -20,15 +23,15 @@ bool QuickMenu::prepare (cocos2d::Layer * layer) {
 
 
     // === TEMP
-    /*MenuItemVector vec;
-    for (int i = 0; i < 10; ++i) {
-    QM_ITEM_IMAGE_N_S ("CloseNormal.png", "CloseSelected.png");
-    vec.pushBack (newItem);
-    }
-    QM_MENU_WITH_VEC (vec);
-    newMenu->alignItemsVerticallyWithPadding (10.f);
-    newMenu->alignItemsInColumns (1, 2, 4, 3, NULL);
-    layer->addChild (newMenu, 10);    */
+    //MenuItemVector vec;
+    //for (int i = 0; i < 2; ++i) {
+    //cocos2d::MenuItemImage * newItem = cocos2d::MenuItemImage::create ("btnNormal.png", "btnSelected.png");
+    //vec.pushBack (newItem);
+    //}
+    //cocos2d::Menu * menu = cocos2d::Menu::createWithArray (vec);
+    //menu->alignItemsVerticallyWithPadding (10.f);
+    ////menu->alignItemsInColumns (1, 2, 4, 3, NULL);
+    //layer->addChild (menu, 10);
     // ===
 
     return true;
@@ -64,36 +67,77 @@ void QuickMenu::addMenu () {
     // Pop </Menu> tag.
     revAttrStack.pop ();
 
-    while (true) {
-        Node * node = revAttrStack.top ();
+    while (!revAttrStack.empty()) {
+        Node node = revAttrStack.top ();
 
-        // Menu tag.
-        if (node->name == "Menu") {
+        // Possible nested submenu.
+        if (node.type == Node::NON_EMPTY_TAG_END) {
+            if (node.name == "Image" || node.name == "Label") {
+                revAttrStack.pop ();
 
-            // New menu -> recursive call.
-            if (node->type == Node::NON_EMPTY_TAG_END) {
-                addMenu ();
-                // !!!! REGISTER TRANSISTIONS
+                node = revAttrStack.top ();
+
+                // New menu -> recursive call.
+                if (node.type == Node::NON_EMPTY_TAG_END && node.name == "Menu") {
+                    addMenu ();
+                    // !!!! REGISTER TRANSISTIONS
+                }
+                else {
+                    XX_ERROR_RETURN ("<QuickMenu> Invalid submenu declaration.");
+                }
+
             }
-            // Register menu and return.
-            else if (node->type == Node::NON_EMPTY_TAG_BEGIN) {
+        }
 
-                // ????
+        // Possible end of menu declaration.
+        else if (node.type == Node::NON_EMPTY_TAG_BEGIN) {
+
+            // Insert new menu.
+            if (node.name == "Menu") {
+                // Reverse MenuItems
+                MenuItemVector menuItems;
+                while (!pendingItems.empty ()) {
+                    menuItems.pushBack (pendingItems.top ());
+                    pendingItems.pop ();
+                }
+
+                // Create menu. Add to layer.
+                cocos2d::Menu * menu = cocos2d::Menu::createWithArray (menuItems);
+                layer->addChild (menu);
+
+                // Add menu attributes
+                revAttrStack.pop ();
+                node = revAttrStack.top ();
+                while (node.type == Node::ATTRIBUTE) {
+                    // TEMP Default aligmnment.
+                    menu->alignItemsVertically ();
+
+                    revAttrStack.pop ();
+                    node = revAttrStack.top ();
+                }
+
+                // Add MenuObject
+                menus.push_back (MenuObject (menu));
+                // TODO Add Transitions.
+
+                return;
+            }
+
+            // Insert new menu item.
+            else if (node.name == "Image" || node.name == "Label") {
+                this->addMenuItem ();
             }
         }
 
         // MenuItem tag
-        else if (node->type == Node::NON_EMPTY_TAG_BEGIN || 
-                 node->type == Node::EMPTY_TAG) {
+        else if (node.type == Node::EMPTY_TAG) {
             this->addMenuItem ();
-            
 
+            continue;
             // ????
         }
-        else if (node->name == "Item" && node->type == Node::NON_EMPTY_TAG_END) {
-            continue;
-        }
 
+        revAttrStack.pop ();
     }
 
     // !!!!! REMEMBER TO REVERSE THE ITEM VECTOR
@@ -102,23 +146,37 @@ void QuickMenu::addMenu () {
 
 void QuickMenu::addMenuItem () {
     // Get MenuItem tag and pop it.
-    Node * node = revAttrStack.top ();
+    Node node = revAttrStack.top ();
     revAttrStack.pop ();
 
-    if (node->name == "Image") {
+    if (node.name == "Image") {
         MIImage * newItem = MIImage::create ();
+        pendingItems.push (newItem);
         this->addImageAttributes (newItem);
-        pendingItems.push (newItem);
     }
-    else if (node->name == "Label") {
+    else if (node.name == "Label") {
         MIFont * newItem = MIFont::create ("TEXT NOT FOUND");
-        this->addFontAttributes (newItem);
         pendingItems.push (newItem);
+        this->addFontAttributes (newItem);
     }
 }
 
 void QuickMenu::addImageAttributes (MIImage * item) {
+    // Add image attributes.
+    Node node = revAttrStack.top ();
+    while (node.type == Node::ATTRIBUTE) {
+        if (node.name == "Normal" && node.value.size() > 0) {
+            cocos2d::Sprite * img = cocos2d::Sprite::create (node.value);
+            item->setNormalImage (img);
+        }
+        else if (node.name == "Selected" && node.value.size () > 0) {
+            cocos2d::Sprite * img = cocos2d::Sprite::create (node.value);
+            item->setSelectedImage (img);
+        }
 
+        revAttrStack.pop ();
+        node = revAttrStack.top ();
+    }
 }
 
 void QuickMenu::addFontAttributes (MIFont * item) {
@@ -129,3 +187,10 @@ void QuickMenu::addCommonAttributes () {
 
 }
 
+// =========================
+// MenuObject class methods
+// =========================
+QuickMenu::MenuObject::MenuObject (cocos2d::Menu * menu)
+    : menu (menu) {
+
+}

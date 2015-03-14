@@ -18,7 +18,7 @@ NS_XX_BEGIN
 
 /**
  * XMLDocument contains of:
- *  - XML Parser which stores content of a document and control 
+ *  - XML Parser which stores content of a document and control
  *    proper XML syntax,
  *  - (TBA) XML Schema to check different classes' set of available
  *    elements and their attributes.
@@ -43,7 +43,7 @@ public:
     // Contains XML Nodes but in different order :
     // First come the attributes of the node from the last one to the first
     // and then the node itself. Nodes are put in normal order.
-    typedef std::stack <XMLNode*> RevAttrStack;
+    typedef std::stack <XMLNode> RevAttrStack;
 
     /**
      * Constructor with filename argument.
@@ -70,10 +70,15 @@ public:
      */
     RevAttrStack * getRevAttrStack ();
 
+    /**
+     * Prints debug information about the XML structure via MessageHandler class.
+     */
+    void printAll ();
+
 private:
 
     /**
-     * XML file parser. Saves XML document in a vector of 
+     * XML file parser. Saves XML document in a vector of
      * XMLNodes (linear algorithm, linear storage).
      */
     class XX_DLL XMLParser {
@@ -86,7 +91,7 @@ private:
 
         /**
          * Prints debug information about the XML structure via MessageHandler class.
-         */          
+         */
         void printAll ();
 
         /**
@@ -103,7 +108,7 @@ private:
 
     private:
         /**
-         * Parse given file. 
+         * Parse given file.
          * @return True if success.
          */
         bool parse ();
@@ -138,7 +143,7 @@ private:
         enum State {
             NONE, TAG_NAME, TAG_INSIDE, ATTR_NAME, ATTR_VALUE, NEMPTY_TAG_END,
             POSSIBLE_COMMENT, COMMENT, POSSIBLE_COMMENT_END,
-        };        
+        };
 
         /// Parsing variables.
 

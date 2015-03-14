@@ -16,7 +16,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     xx::QuickMenu * qm = xx::xxQM::create ();
     xx::xxXML xmlDoc = xx::xxXML ("menu.xml");
 
-    qm->setContent (xmlDoc);    
+    qm->setContent (xmlDoc);
 
     // ===============================================
 

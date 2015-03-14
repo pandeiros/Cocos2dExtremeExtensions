@@ -8,12 +8,12 @@
  *
  * Project supervised by KNTG Polygon.
  *
- * @authors 
+ * @authors
  *  - Paweł Kaczyński
  *
  * Extreme Extensions pack contains many tools simplifying creation
  * of commonly used features in game development. The maing goal is
- * to reduce the amount of work on non-gameplay and backend features 
+ * to reduce the amount of work on non-gameplay and backend features
  * to minimum. It is a great pack to use on game jams.
  *
  * Content:
