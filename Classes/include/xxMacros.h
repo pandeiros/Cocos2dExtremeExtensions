@@ -3,6 +3,7 @@
 
 // Messages
 #define XX_LOG(format, ...) cocos2d::log(format, ##__VA_ARGS__)
+#define XX_ASSERT(condition) assert(condition)
 
 #define XX_ERROR(message) xx::MessageHandler::printMessage (message, xx::MessageHandler::_ERROR)
 #define XX_ERROR_RETURN(message) xx::MessageHandler::printMessage (message, xx::MessageHandler::_ERROR); return

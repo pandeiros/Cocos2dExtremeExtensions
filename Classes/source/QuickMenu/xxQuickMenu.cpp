@@ -21,18 +21,13 @@ bool QuickMenu::prepare (cocos2d::Layer * layer) {
         XX_ERROR_RETURN_FALSE ("<QuickMenu> Invalid root closing tag. Preparing menu failed.");
     }
 
+    // Display the last menu.
+    if (menus.size () > 0) {
+        menus.back ().setVisible (true);
+    }
 
-    // === TEMP
-    //MenuItemVector vec;
-    //for (int i = 0; i < 2; ++i) {
-    //cocos2d::MenuItemImage * newItem = cocos2d::MenuItemImage::create ("btnNormal.png", "btnSelected.png");
-    //vec.pushBack (newItem);
-    //}
-    //cocos2d::Menu * menu = cocos2d::Menu::createWithArray (vec);
-    //menu->alignItemsVerticallyWithPadding (10.f);
-    ////menu->alignItemsInColumns (1, 2, 4, 3, NULL);
-    //layer->addChild (menu, 10);
-    // ===
+    // TEMP
+    addTransition ();
 
     return true;
 }
@@ -67,7 +62,7 @@ void QuickMenu::addMenu () {
     // Pop </Menu> tag.
     revAttrStack.pop ();
 
-    while (!revAttrStack.empty()) {
+    while (!revAttrStack.empty ()) {
         Node node = revAttrStack.top ();
 
         // Possible nested submenu.
@@ -77,10 +72,14 @@ void QuickMenu::addMenu () {
 
                 node = revAttrStack.top ();
 
-                // New menu -> recursive call.
+                // New menu -> recursive call. Save pending items in temp. container.
                 if (node.type == Node::NON_EMPTY_TAG_END && node.name == "Menu") {
+                    PendingItems tempItems = pendingItems;
                     addMenu ();
+                    pendingItems = tempItems;
+
                     // !!!! REGISTER TRANSISTIONS
+                    // Take last added MenuObject as a target.
                 }
                 else {
                     XX_ERROR_RETURN ("<QuickMenu> Invalid submenu declaration.");
@@ -104,21 +103,14 @@ void QuickMenu::addMenu () {
                 // Create menu. Add to layer.
                 cocos2d::Menu * menu = cocos2d::Menu::createWithArray (menuItems);
                 layer->addChild (menu);
+                menu->setVisible (false);
 
                 // Add menu attributes
                 revAttrStack.pop ();
-                node = revAttrStack.top ();
-                while (node.type == Node::ATTRIBUTE) {
-                    // TEMP Default aligmnment.
-                    menu->alignItemsVertically ();
-
-                    revAttrStack.pop ();
-                    node = revAttrStack.top ();
-                }
+                this->addMenuAttributes (menu);
 
                 // Add MenuObject
                 menus.push_back (MenuObject (menu));
-                // TODO Add Transitions.
 
                 return;
             }
@@ -126,6 +118,9 @@ void QuickMenu::addMenu () {
             // Insert new menu item.
             else if (node.name == "Image" || node.name == "Label") {
                 this->addMenuItem ();
+
+                // TODO Add Transitions to just created menus
+                // ...take previously added target and add callback.
             }
         }
 
@@ -155,9 +150,34 @@ void QuickMenu::addMenuItem () {
         this->addImageAttributes (newItem);
     }
     else if (node.name == "Label") {
-        MIFont * newItem = MIFont::create ("TEXT NOT FOUND");
+        MIFont * newItem = MIFont::create ("Default label");
         pendingItems.push (newItem);
         this->addFontAttributes (newItem);
+    }
+}
+
+void QuickMenu::addMenuAttributes (cocos2d::Menu * menu) {
+    Node node = revAttrStack.top ();
+    float padding = 0.f;
+    std::string align = "";
+
+    while (node.type == Node::ATTRIBUTE) {
+        if (node.name == "Align" && node.value.size () > 0) {
+            align = node.value;
+        }
+        else if (node.name == "Padding" && node.value.size () > 0) {
+            padding = xxSTR::convertFromString<float> (node.value);
+        }
+
+        revAttrStack.pop ();
+        node = revAttrStack.top ();
+    }
+
+    if (align == "Vertically") {
+        menu->alignItemsVerticallyWithPadding (padding);
+    }
+    else if (align == "Horizontally") {
+        menu->alignItemsHorizontallyWithPadding (padding);
     }
 }
 
@@ -165,13 +185,16 @@ void QuickMenu::addImageAttributes (MIImage * item) {
     // Add image attributes.
     Node node = revAttrStack.top ();
     while (node.type == Node::ATTRIBUTE) {
-        if (node.name == "Normal" && node.value.size() > 0) {
+        if (node.name == "Normal" && node.value.size () > 0) {
             cocos2d::Sprite * img = cocos2d::Sprite::create (node.value);
             item->setNormalImage (img);
         }
         else if (node.name == "Selected" && node.value.size () > 0) {
             cocos2d::Sprite * img = cocos2d::Sprite::create (node.value);
             item->setSelectedImage (img);
+        }
+        else {
+            this->addCommonAttributes (item);
         }
 
         revAttrStack.pop ();
@@ -180,11 +203,37 @@ void QuickMenu::addImageAttributes (MIImage * item) {
 }
 
 void QuickMenu::addFontAttributes (MIFont * item) {
+    // Add image attributes.
+    Node node = revAttrStack.top ();
+    while (node.type == Node::ATTRIBUTE) {
+        if (node.name == "Text" && node.value.size () > 0) {
+            item->setString (node.value);
+        }
+        else {
+            this->addCommonAttributes (item);
+        }
 
+        revAttrStack.pop ();
+        node = revAttrStack.top ();
+    }
 }
 
-void QuickMenu::addCommonAttributes () {
+void QuickMenu::addTransition () {// (cocos2d::Menu * menu) {
+    cocos2d::MenuItem * item = (cocos2d::MenuItem*) menus.back ().getMenu ()->getChildByName ("label_1");
+    //item->setCallback (CC_CALLBACK_1 (QuickMenu::Transition::callback, QuickMenu::Transition));
+    item->setCallback ([] (Ref* pSender) {QuickMenu::callback (pSender); });
+}
 
+void QuickMenu::addCommonAttributes (cocos2d::MenuItem * item) {
+    // Add common attributes.
+    Node node = revAttrStack.top ();
+
+    if (node.name == "Color" && node.value.size () > 0) {
+        item->setColor (xxSTR::getColor3BFromHex (node.value));
+    }
+    else if (node.name == "Name" && node.value.size () > 0) {
+        item->setName (node.value);
+    }
 }
 
 // =========================
@@ -193,4 +242,8 @@ void QuickMenu::addCommonAttributes () {
 QuickMenu::MenuObject::MenuObject (cocos2d::Menu * menu)
     : menu (menu) {
 
+}
+
+void QuickMenu::MenuObject::setVisible (bool isVisible) {
+    this->menu->setVisible (isVisible);
 }

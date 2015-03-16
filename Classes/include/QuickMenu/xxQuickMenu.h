@@ -7,6 +7,7 @@
 
 #include "xxQuickMenuDefines.h"
 #include "../Utils/XMLDocument/xxXMLDocument.h"
+#include "../Utils/StringUtilities/xxStringUtilities.h"
 #include "ui/UILayout.h"
 
 #include <stack>
@@ -17,11 +18,13 @@ NS_XX_BEGIN
  * QuickMenu provides quick and easy cocos2d::Menu creation based on a XML file.
  *
  * Features:
- *  - (Under dev.) Support for all different MenuItem types.
- *  - (Under dev.) Attributes for Menu and MenuItems.
+ *  - Support Image and Label menu item types.
+ *  - Attributes for MenuItems
+ *  - (Under dev.) Attributes for Menu.
  *  - (TBA) Different MenuItems alignment in Menu.
  *  - (TBA) Nested submenus.
  *  - (TBA) Transitions between submenus.
+ *  - (TBA) Hover functionality for menu items.
  *
  * For sample QuickMenu XML file, check TestScenes/QuickMenu/QuickMenuExample.xml
  */
@@ -34,28 +37,28 @@ public:
      */
     CREATE_FUNC (QuickMenu)
 
-        /**
-         * Create QuickMenu with content. You can call prepare() method
-         * subsequently to assign layer.
-         * @param string filename : Path to file for XMLDocument to load content.
-         * @return Autoreleased QuickMenu object.
-         */
-         XX_CREATE_WITH_FILE_FUNC (QuickMenu)
+    /**
+     * Create QuickMenu with content. You can call prepare() method
+     * subsequently to assign layer.
+     * @param string filename : Path to file for XMLDocument to load content.
+     * @return Autoreleased QuickMenu object.
+     */
+    XX_CREATE_WITH_FILE_FUNC (QuickMenu)
 
-         /**
-          * Create empty QuickMenu with content and layer assigned.
-          * @param Layer layer : Cocos2d layer for menu to be assigned to.
-          * @param string filename : Path to file for XMLDocument to load content.
-          * @return Autoreleased QuickMenu object.
-          */
-          QM_CREATE_FULL_FUNC
+    /**
+     * Create empty QuickMenu with content and layer assigned.
+     * @param Layer layer : Cocos2d layer for menu to be assigned to.
+     * @param string filename : Path to file for XMLDocument to load content.
+     * @return Autoreleased QuickMenu object.
+     */
+    QM_CREATE_FULL_FUNC
 
-          /**
-           * Assign layer and create menu objects.
-           * @param Layer* layer : Cocos2d layer for menu to be assigned to.
-           * @return True if success.
-           */
-           bool prepare (cocos2d::Layer * layer);
+    /**
+     * Assign layer and create menu objects.
+     * @param Layer* layer : Cocos2d layer for menu to be assigned to.
+     * @return True if success.
+     */
+    bool prepare (cocos2d::Layer * layer);
 
     /**
      * Set content of XML document from a reference.
@@ -68,8 +71,11 @@ public:
      * @param string filename : Path to file for XMLDocument to load content.
      */
     bool setContentFromFile (const std::string & filename);
-
+    static void callback (cocos2d::Ref* pSender) {
+        cocos2d::Director::getInstance ()->end ();
+    }
 private:
+    
     // Vector of MenuItems* to be assigned to Menu.
     typedef cocos2d::Vector<cocos2d::MenuItem*> MenuItemVector;
 
@@ -82,6 +88,16 @@ private:
     typedef XMLDocument::XMLNode Node;
 
     /**
+     * Helper class to set up transitions between menus/submenus.
+     */
+    class XX_DLL Transition {
+    public:
+
+    private:
+
+    };
+
+    /**
      * Container for cocos2d::Menu and related transitions.
      */
     class XX_DLL MenuObject {
@@ -92,12 +108,22 @@ private:
          */
         MenuObject (cocos2d::Menu * menu);
 
+        /**
+         * Set menu's visibility.
+         * @param bool isVisible : True if menu is visible as a layer's child.
+         */
+        void setVisible (bool isVisible);
+
+        cocos2d::Menu * getMenu () {
+            return menu;
+        }
+
     private:
         // Menu itself.
         cocos2d::Menu * menu;
 
-        // True if menu is added as a child to a layer.
-        bool isVisible = false;
+        // (optional) Transition to other menu/submenu.
+        Transition transition;
     };
 
     /**
@@ -124,19 +150,33 @@ private:
     void addMenuItem ();
 
     /**
-     * Add common attributes to lastly created MenuItem.
+     * Add attribute to lastly created Menu.
+     * @param cocos2d::Menu * menu : Currently processed menu.
      */
-    void addCommonAttributes ();
+    void addMenuAttributes (cocos2d::Menu * menu);
+
+    /**
+     * Add common attributes to lastly created MenuItem.
+     * @param cocos2d::MenuItem * item : Currently processed menu item.
+     */
+    void addCommonAttributes (cocos2d::MenuItem * item);
 
     /**
      * Add attributes to lastly created MenuItemImage.
+     * @param cocos2d::MenuItemImage * item : Currently processed image.
      */
     void addImageAttributes (MIImage * item);
 
     /**
      * Add attributes to lastly created MenuItemFont.
+     * @param cocos2d::MenuItemFont * item : Currently processed font.
      */
     void addFontAttributes (MIFont * item);
+
+    /**
+     * Add transition between menus/submenus.
+     */
+    void addTransition ();// cocos2d::Menu * menu);
 
     // Container for MenuObjects
     std::vector<MenuObject> menus;

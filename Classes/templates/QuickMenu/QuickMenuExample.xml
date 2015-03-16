@@ -6,20 +6,22 @@
 -->
 
 <!-- Main menu with it's attributes. This node is OBLIGATORY as a root node. -->
-<Menu Align="Vertical" Padding="10" Name="MainMenu">
+<Menu Align="Vertically" Padding="100.0" Name="MainMenu">
 
   <!-- Sample label -->
-  <Label Text="Main Menu"/>
+  <Label Text="Main Menu" Name="label_1" />
 
-  <!-- Item with callback and graphics -->
-  <Image Normal="btnNormal.png" Selected="btnSelected.png" Callback="new_game" />
+  <!-- Sample image -->
+  <Image Normal="CloseNormal.png" Selected="CloseSelected.png" />
 
-  <!-- Item leading to submenu
-  <Image>
-    <Menu Name="Options">
-      <Image />
+  <!-- Common properties for both Labels and Images -->
+  <Label Color="#ff00ff" Callback="new_game" Name="image_1" />
+
+  <!-- Label leading to submenu -->
+  <Label Text="Options label">
+    <Menu Align="Horizontally" Name="Options">
+      <Label Text="Submenu Label" />
     </Menu>
-  </Image>
-  -->
+  </Label>
 
 </Menu>
