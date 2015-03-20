@@ -10,18 +10,18 @@
 // Shared, useful macros
 #include "xxMacros.h"
 
-// Defines for '.exe' compilation
-#ifdef XX_EXE
+// Defines for win32 compilation as '.exe' application.
+/* #ifdef XX_WIN32
     // Windows Header Files:
     #include <windows.h>
     #include <tchar.h>
 
     // C RunTime Header Files
     #include "CCStdC.h"
-#endif  // XX_EXE
+#endif  // XX_WIN32 */
 
 // Versions
-#define XX_VERSION 0x00000110
+#define XX_VERSION 0x00000112
 #define MIN_REQUIRED_CC_VERSION 0x00030400
 #define MAX_TESTED_CC_VERSION 0x00030400
 
@@ -39,10 +39,10 @@
 #define NS_XX                           ::xx
 
 // DLL Export
-#ifdef XX_EXE
-    #define XX_DLL
+#ifdef WIN32
+	define XX_DLL __declspec(dllexport)  
 #else
-    #define XX_DLL __declspec(dllexport)
+    #define XX_DLL
 #endif
 
 

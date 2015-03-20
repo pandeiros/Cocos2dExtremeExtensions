@@ -22,7 +22,7 @@
  *********************************************************************/
 
 // Cocos2D lib
-#include "cocos2d/cocos/cocos2d.h"
+#include "cocos2d.h"
 
 // Extreme Extensions defines
 #include "xxConfig.h"
@@ -34,6 +34,9 @@
 #include "Utils/XMLDocument/xxXMLDocument.h"
 #include "Utils/MessageHandler/xxMessageHandler.h"
 #include "Utils/StringUtilities/xxStringUtilities.h"
+
+ // XX Test file
+ #include "xxTest.h"
 
 NS_XX_BEGIN
 

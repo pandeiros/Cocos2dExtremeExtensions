@@ -3,8 +3,10 @@
 
 # Cocos2d-x files
 cocos2d/*
-.cocos-project.json
-CMakeLists.txt
+
+# Project builds
+bin/*
+linux-build/*
 
 # Documentation
 doc/*

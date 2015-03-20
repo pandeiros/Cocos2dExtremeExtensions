@@ -77,7 +77,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\include;..;%(AdditionalIn ludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -112,8 +112,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>XX_EXE;WIN32;NDEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\include;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
@@ -145,24 +145,22 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\source\QuickMenu\xxQuickMenu.cpp" />
-    <ClCompile Include="..\Classes\source\ExtremeExtensions.cpp" />
-    <ClCompile Include="..\Classes\source\Utils\MessageHandler\xxMessageHandler.cpp" />
-    <ClCompile Include="..\Classes\source\Utils\StringUtilities\xxStringUtilities.cpp" />
-    <ClCompile Include="..\Classes\source\Utils\XMLDocument\xxXMLDocument.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\source\QuickMenu\xxQuickMenu.cpp" />
+    <ClCompile Include="..\source\ExtremeExtensions.cpp" />
+    <ClCompile Include="..\source\Utils\MessageHandler\xxMessageHandler.cpp" />
+    <ClCompile Include="..\source\Utils\StringUtilities\xxStringUtilities.cpp" />
+    <ClCompile Include="..\source\Utils\XMLDocument\xxXMLDocument.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\include\ExtremeExtensions.h" />
-    <ClInclude Include="..\Classes\include\QuickMenu\xxQuickMenu.h" />
-    <ClInclude Include="..\Classes\include\QuickMenu\xxQuickMenuDefines.h" />
-    <ClInclude Include="..\Classes\include\Utils\MessageHandler\xxMessageHandler.h" />
-    <ClInclude Include="..\Classes\include\Utils\StringUtilities\xxStringUtilities.h" />
-    <ClInclude Include="..\Classes\include\Utils\XMLDocument\xxXMLDocument.h" />
-    <ClInclude Include="..\Classes\include\Utils\XMLDocument\xxXMLDocumentDefines.h" />
-    <ClInclude Include="..\Classes\include\xxConfig.h" />
-    <ClInclude Include="..\Classes\include\xxMacros.h" />
-    <ClInclude Include="main.h" />
+    <ClInclude Include="..\include\ExtremeExtensions.h" />
+    <ClInclude Include="..\include\QuickMenu\xxQuickMenu.h" />
+    <ClInclude Include="..\include\QuickMenu\xxQuickMenuDefines.h" />
+    <ClInclude Include="..\include\Utils\MessageHandler\xxMessageHandler.h" />
+    <ClInclude Include="..\include\Utils\StringUtilities\xxStringUtilities.h" />
+    <ClInclude Include="..\include\Utils\XMLDocument\xxXMLDocument.h" />
+    <ClInclude Include="..\include\Utils\XMLDocument\xxXMLDocumentDefines.h" />
+    <ClInclude Include="..\include\xxConfig.h" />
+    <ClInclude Include="..\include\xxMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">
