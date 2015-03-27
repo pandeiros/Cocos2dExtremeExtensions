@@ -1,23 +1,23 @@
-#ifndef __XX_MESSAGE_HANDLER_H__
-#define __XX_MESSAGE_HANDLER_H__
+#ifndef __NUX_MESSAGE_HANDLER_H__
+#define __NUX_MESSAGE_HANDLER_H__
 
-#define xxMSG MessageHandler
+#define nuxMSG MessageHandler
 
-#include "../../xxConfig.h"
+#include "../../nuxConfig.h"
 
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include <map>
 
-NS_XX_BEGIN
+NS_NUX_BEGIN
 
 /**
  * Non-instantiable class for displaying formatted message results.
  * Provides 4 message types: errors, warnings, information and elapsed
  * time messages. Contains predefined templates for popular messages.
  */
-class XX_DLL MessageHandler {
+class NUX_DLL MessageHandler {
 public:
     // Message type.
     enum Type {
@@ -50,7 +50,7 @@ private:
     static std::map <Type, std::string> fillMsgHeaders ();
 };
 
-NS_XX_END
+NS_NUX_END
 
-#endif  // __XX_MESSAGE_HANDLER_H__
+#endif  // __NUX_MESSAGE_HANDLER_H__
 

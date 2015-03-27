@@ -1,12 +1,12 @@
-#ifndef __XX_XML_DOCUMENT_H__
-#define __XX_XML_DOCUMENT_H__
+#ifndef __NUX_XML_DOCUMENT_H__
+#define __NUX_XML_DOCUMENT_H__
 
-#define xxXML XMLDocument
+#define nuxXML XMLDocument
 
-#include "../../xxConfig.h"
+#include "../../nuxConfig.h"
 
-#include "xxXMLDocumentDefines.h"
-#include "../MessageHandler/xxMessageHandler.h"
+#include "nuxXMLDocumentDefines.h"
+#include "../MessageHandler/nuxMessageHandler.h"
 
 #include <string>
 #include <vector>
@@ -14,7 +14,7 @@
 #include <fstream>
 #include <sstream>
 
-NS_XX_BEGIN
+NS_NUX_BEGIN
 
 /**
  * XMLDocument contains of:
@@ -23,7 +23,7 @@ NS_XX_BEGIN
  *  - (TBA) XML Schema to check different classes' set of available
  *    elements and their attributes.
  */
-class XX_DLL XMLDocument {
+class NUX_DLL XMLDocument {
 public:
     // Types of nodes to be stored in the XML content.
     class XMLNode {
@@ -81,7 +81,7 @@ private:
      * XML file parser. Saves XML document in a vector of
      * XMLNodes (linear algorithm, linear storage).
      */
-    class XX_DLL XMLParser {
+    class NUX_DLL XMLParser {
     public:
         /**
          * Constructor with filename argument.
@@ -162,7 +162,7 @@ private:
      * XML Schema verifier. (TBA) Check tags and their attributes, types
      * of data, nesting rules, default and obligatory values.
      */
-    class XX_DLL XMLSchema {
+    class NUX_DLL XMLSchema {
     public:
         /**
          * Set Content to verify.
@@ -199,6 +199,6 @@ private:
     XMLSchema xmlSchema;
 };
 
-NS_XX_END
+NS_NUX_END
 
-#endif  // __XX_XML_DOCUMENT_H__
+#endif  // __NUX_XML_DOCUMENT_H__

@@ -1,16 +1,16 @@
-#include "../include/xxTest.h"
+#include "../include/nuxTest.h"
 
-NS_XX_BEGIN
+NS_NUX_BEGIN
 
-XX_DLL bool xxTest () {
+NUX_DLL bool nuxTest () {
 
     // TESTS HERE ====================================
 
-    std::cout << "Test result: Success!\n";
+    NUX_LOG ("Test result: Success.");
 
     return true;
 
     // ===============================================
 }
 
-NS_XX_END
+NS_NUX_END

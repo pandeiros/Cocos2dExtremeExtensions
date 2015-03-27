@@ -17,7 +17,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '10.0'">v100</PlatformToolset>
@@ -69,15 +69,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
     <TargetExt>.dll</TargetExt>
+    <TargetName>$(NuxLibName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
-    <TargetExt>.exe</TargetExt>
+    <TargetExt>.dll</TargetExt>
+    <TargetName>$(NuxLibName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\include;..;%(AdditionalIn ludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\cocos2d\cocos\;$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;$(SolutionDir)..\include\;..;%(AdditionalIn ludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -91,16 +93,16 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(NuxLibName).dll</OutputFile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>if not exist "$(SolutionDir)libs\Debug" mkdir "$(SolutionDir)libs\Debug"
-if exist "$(OutDir)$(ProjectName).lib" xcopy /Y /Q "$(OutDir)$(ProjectName).lib" "$(SolutionDir)libs\Debug"
-if exist "$(OutDir)$(ProjectName).dll" xcopy /Y /Q "$(OutDir)$(ProjectName).dll" "$(SolutionDir)libs\Debug"
+      <Command>if not exist "$(SolutionDir)..\lib\win32\Debug" mkdir "$(SolutionDir)..\lib\win32\Debug"
+if exist "$(OutDir)$(NuxLibName).lib" xcopy /Y /Q "$(OutDir)$(NuxLibName).lib" "$(SolutionDir)..\lib\win32\Debug"
+if exist "$(OutDir)$(NuxLibName).dll" xcopy /Y /Q "$(OutDir)$(NuxLibName).dll" "$(SolutionDir)..\lib\win32\Debug"
       </Command>
     </PostBuildEvent>
     <PreLinkEvent>
@@ -112,7 +114,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\include;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\cocos2d\cocos\;$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;$(SolutionDir)..\include\;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -125,7 +127,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </ClCompile>
     <Link>
       <AdditionalDependencies>libcurl_imp.lib;websockets.lib;%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
+      <OutputFile>$(OutDir)$(NuxLibName).dll</OutputFile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -134,9 +136,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>if not exist "$(SolutionDir)libs\Release" mkdir "$(SolutionDir)libs\Release"
-if exist "$(OutDir)$(ProjectName).lib" xcopy /Y /Q "$(OutDir)$(ProjectName).lib" "$(SolutionDir)libs\Release"
-if exist "$(OutDir)$(ProjectName).dll" xcopy /Y /Q "$(OutDir)$(ProjectName).dll" "$(SolutionDir)libs\Release"
+      <Command>if not exist "$(SolutionDir)..\lib\win32\Release" mkdir "$(SolutionDir)..\lib\win32\Release"
+if exist "$(OutDir)$(NuxLibName).lib" xcopy /Y /Q "$(OutDir)$(NuxLibName).lib" "$(SolutionDir)..\lib\win32\Release"
+if exist "$(OutDir)$(NuxLibName).dll" xcopy /Y /Q "$(OutDir)$(NuxLibName).dll" "$(SolutionDir)..\lib\win32\Release"
       </Command>
     </PostBuildEvent>
     <PreLinkEvent>
@@ -145,22 +147,24 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\QuickMenu\xxQuickMenu.cpp" />
-    <ClCompile Include="..\source\ExtremeExtensions.cpp" />
-    <ClCompile Include="..\source\Utils\MessageHandler\xxMessageHandler.cpp" />
-    <ClCompile Include="..\source\Utils\StringUtilities\xxStringUtilities.cpp" />
-    <ClCompile Include="..\source\Utils\XMLDocument\xxXMLDocument.cpp" />
+    <ClCompile Include="..\source\nuxTest.cpp" />
+    <ClCompile Include="..\source\QuickMenu\nuxQuickMenu.cpp" />
+    <ClCompile Include="..\source\Nux.cpp" />
+    <ClCompile Include="..\source\Utils\MessageHandler\nuxMessageHandler.cpp" />
+    <ClCompile Include="..\source\Utils\StringUtilities\nuxStringUtilities.cpp" />
+    <ClCompile Include="..\source\Utils\XMLDocument\nuxXMLDocument.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\ExtremeExtensions.h" />
-    <ClInclude Include="..\include\QuickMenu\xxQuickMenu.h" />
-    <ClInclude Include="..\include\QuickMenu\xxQuickMenuDefines.h" />
-    <ClInclude Include="..\include\Utils\MessageHandler\xxMessageHandler.h" />
-    <ClInclude Include="..\include\Utils\StringUtilities\xxStringUtilities.h" />
-    <ClInclude Include="..\include\Utils\XMLDocument\xxXMLDocument.h" />
-    <ClInclude Include="..\include\Utils\XMLDocument\xxXMLDocumentDefines.h" />
-    <ClInclude Include="..\include\xxConfig.h" />
-    <ClInclude Include="..\include\xxMacros.h" />
+    <ClInclude Include="..\include\Nux.h" />
+    <ClInclude Include="..\include\nuxTest.h" />
+    <ClInclude Include="..\include\QuickMenu\nuxQuickMenu.h" />
+    <ClInclude Include="..\include\QuickMenu\nuxQuickMenuDefines.h" />
+    <ClInclude Include="..\include\Utils\MessageHandler\nuxMessageHandler.h" />
+    <ClInclude Include="..\include\Utils\StringUtilities\nuxStringUtilities.h" />
+    <ClInclude Include="..\include\Utils\XMLDocument\nuxXMLDocument.h" />
+    <ClInclude Include="..\include\Utils\XMLDocument\nuxXMLDocumentDefines.h" />
+    <ClInclude Include="..\include\nuxConfig.h" />
+    <ClInclude Include="..\include\nuxMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">

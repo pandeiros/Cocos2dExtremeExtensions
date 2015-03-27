@@ -1,5 +1,5 @@
-#ifndef __XX_XML_PARSER_DEFINES_H__
-#define __XX_XML_PARSER_DEFINES_H__
+#ifndef __NUX_XML_PARSER_DEFINES_H__
+#define __NUX_XML_PARSER_DEFINES_H__
 
 // Reading next character from string content
 #define XML_READ_ONE_CHAR(content) \
@@ -12,4 +12,4 @@
         if (index == content.size()) { eof = true; } \
     }
 
-#endif  // __XX_XML_PARSER_DEFINES_H__
+#endif  // __NUX_XML_PARSER_DEFINES_H__

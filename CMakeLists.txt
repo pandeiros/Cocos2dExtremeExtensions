@@ -25,7 +25,7 @@ cmake_policy(SET CMP0017 NEW)
 
 cmake_minimum_required(VERSION 2.8)
 
-set(APP_NAME extreme)
+set(APP_NAME nux)
 project (${APP_NAME})
 
 set(COCOS2D_ROOT ${CMAKE_SOURCE_DIR}/cocos2d)
@@ -114,12 +114,12 @@ include_directories(
 )
 
 set(GAME_SRC
-  source/ExtremeExtensions.cpp
-  source/xxTest.cpp
-  source/QuickMenu/xxQuickMenu.cpp
-  source/Utils/XMLDocument/xxXMLDocument.cpp
-  source/Utils/StringUtilities/xxStringUtilities.cpp
-  source/Utils/MessageHandler/xxMessageHandler.cpp
+  source/Nux.cpp
+  source/nuxTest.cpp
+  source/QuickMenu/nuxQuickMenu.cpp
+  source/Utils/XMLDocument/XMLDocument.cpp
+  source/Utils/StringUtilities/StringUtilities.cpp
+  source/Utils/MessageHandler/MessageHandler.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 

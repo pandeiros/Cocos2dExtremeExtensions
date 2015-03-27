@@ -1,16 +1,16 @@
-#include "../../include/QuickMenu/xxQuickMenu.h"
+#include "../../include/QuickMenu/nuxQuickMenu.h"
 
-USING_NS_XX;
+USING_NS_NUX;
 
 // =========================
 // QuickMenu class methods
 // =========================
 bool QuickMenu::prepare (cocos2d::Layer * layer) {
     if (!layer) {
-        XX_ERROR_RETURN_FALSE ("<QuickMenu> Requested menu creation on invalid layer.");
+        NUX_ERROR_RETURN_FALSE ("<QuickMenu> Requested menu creation on invalid layer.");
     }
     else if (content.empty ()) {
-        XX_ERROR_RETURN_FALSE ("<QuickMenu> Menu preparation failed: Content is empty.");
+        NUX_ERROR_RETURN_FALSE ("<QuickMenu> Menu preparation failed: Content is empty.");
     }
 
     this->layer = layer;
@@ -18,7 +18,7 @@ bool QuickMenu::prepare (cocos2d::Layer * layer) {
     if (revAttrStack.top ().name == "Menu")
         this->addMenu ();
     else {
-        XX_ERROR_RETURN_FALSE ("<QuickMenu> Invalid root closing tag. Preparing menu failed.");
+        NUX_ERROR_RETURN_FALSE ("<QuickMenu> Invalid root closing tag. Preparing menu failed.");
     }
 
     // Display the last menu.
@@ -32,13 +32,13 @@ bool QuickMenu::prepare (cocos2d::Layer * layer) {
     return true;
 }
 
-void QuickMenu::setContent (xxXML & xmlDocument) {
+void QuickMenu::setContent (nuxXML & xmlDocument) {
     this->content = *xmlDocument.getContent ();
     this->revAttrStack = *xmlDocument.getRevAttrStack ();
 }
 
 bool QuickMenu::setContentFromFile (const std::string & filename) {
-    xxXML xmlDocument = xxXML (filename);
+    nuxXML xmlDocument = nuxXML (filename);
     if (!xmlDocument.getContent ()->empty ()) {
         this->content = *xmlDocument.getContent ();
         this->revAttrStack = *xmlDocument.getRevAttrStack ();
@@ -82,7 +82,7 @@ void QuickMenu::addMenu () {
                     // Take last added MenuObject as a target.
                 }
                 else {
-                    XX_ERROR_RETURN ("<QuickMenu> Invalid submenu declaration.");
+                    NUX_ERROR_RETURN ("<QuickMenu> Invalid submenu declaration.");
                 }
 
             }
@@ -166,7 +166,7 @@ void QuickMenu::addMenuAttributes (cocos2d::Menu * menu) {
             align = node.value;
         }
         else if (node.name == "Padding" && node.value.size () > 0) {
-            padding = xxSTR::convertFromString<float> (node.value);
+            padding = nuxSTR::convertFromString<float> (node.value);
         }
 
         revAttrStack.pop ();
@@ -229,7 +229,7 @@ void QuickMenu::addCommonAttributes (cocos2d::MenuItem * item) {
     Node node = revAttrStack.top ();
 
     if (node.name == "Color" && node.value.size () > 0) {
-        item->setColor (xxSTR::getColor3BFromHex (node.value));
+        item->setColor (nuxSTR::getColor3BFromHex (node.value));
     }
     else if (node.name == "Name" && node.value.size () > 0) {
         item->setName (node.value);

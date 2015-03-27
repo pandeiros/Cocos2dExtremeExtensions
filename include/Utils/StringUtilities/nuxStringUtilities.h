@@ -1,18 +1,18 @@
-#ifndef __XX_STRING_UTILITIES_H__
-#define __XX_STRING_UTILITIES_H__
+#ifndef __NUX_STRING_UTILITIES_H__
+#define __NUX_STRING_UTILITIES_H__
 
-#define xxSTR StringUtilities
+#define nuxSTR StringUtilities
 
-#include "../../xxConfig.h"
+#include "../../nuxConfig.h"
 
-#include "../MessageHandler/xxMessageHandler.h"
+#include "../MessageHandler/nuxMessageHandler.h"
 
 #include <string>
 #include <sstream>
 #include <iostream>
 #include <cassert>
 
-NS_XX_BEGIN
+NS_NUX_BEGIN
 
 /**
  * Non-instantiable class. Provides various string operations.
@@ -53,6 +53,6 @@ inline Type StringUtilities::convertFromString (const std::string value) {
     return conversion;
 }
 
-NS_XX_END
+NS_NUX_END
 
-#endif  // __XX_STRING_UTILITIES_H__
+#endif  // __NUX_STRING_UTILITIES_H__

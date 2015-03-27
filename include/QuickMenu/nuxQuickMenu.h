@@ -1,18 +1,18 @@
-#ifndef __XX_QUICK_MENU_H__
-#define __XX_QUICK_MENU_H__
+#ifndef __NUX_QUICK_MENU_H__
+#define __NUX_QUICK_MENU_H__
 
-#define xxQM QuickMenu
+#define nuxQM QuickMenu
 
-#include "../xxConfig.h"
+#include "../nuxConfig.h"
 
-#include "xxQuickMenuDefines.h"
-#include "../Utils/XMLDocument/xxXMLDocument.h"
-#include "../Utils/StringUtilities/xxStringUtilities.h"
+#include "nuxQuickMenuDefines.h"
+#include "../Utils/XMLDocument/nuxXMLDocument.h"
+#include "../Utils/StringUtilities/nuxStringUtilities.h"
 #include "ui/UILayout.h"
 
 #include <stack>
 
-NS_XX_BEGIN
+NS_NUX_BEGIN
 
 /**
  * QuickMenu provides quick and easy cocos2d::Menu creation based on a XML file.
@@ -28,7 +28,7 @@ NS_XX_BEGIN
  *
  * For sample QuickMenu XML file, check TestScenes/QuickMenu/QuickMenuExample.xml
  */
-class XX_DLL QuickMenu : private cocos2d::Ref {
+class NUX_DLL QuickMenu : private cocos2d::Ref {
 public:
     /**
      * Create empty QuickMenu. You can call setContent() and
@@ -43,7 +43,7 @@ public:
      * @param string filename : Path to file for XMLDocument to load content.
      * @return Autoreleased QuickMenu object.
      */
-    XX_CREATE_WITH_FILE_FUNC (QuickMenu)
+    NUX_CREATE_WITH_FILE_FUNC (QuickMenu)
 
     /**
      * Create empty QuickMenu with content and layer assigned.
@@ -64,7 +64,7 @@ public:
      * Set content of XML document from a reference.
      * @param XMLDocument xmlDocument : Reference to object to get XML content from.
      */
-    void setContent (xxXML & xmlDocument);
+    void setContent (nuxXML & xmlDocument);
 
     /**
      * Set content of XML document from a reference.
@@ -75,7 +75,7 @@ public:
         cocos2d::Director::getInstance ()->end ();
     }
 private:
-    
+
     // Vector of MenuItems* to be assigned to Menu.
     typedef cocos2d::Vector<cocos2d::MenuItem*> MenuItemVector;
 
@@ -90,7 +90,7 @@ private:
     /**
      * Helper class to set up transitions between menus/submenus.
      */
-    class XX_DLL Transition {
+    class NUX_DLL Transition {
     public:
 
     private:
@@ -100,7 +100,7 @@ private:
     /**
      * Container for cocos2d::Menu and related transitions.
      */
-    class XX_DLL MenuObject {
+    class NUX_DLL MenuObject {
     public:
         /**
          * Constructor with cocos2d::Menu* parameter.
@@ -130,14 +130,14 @@ private:
      * Initialize empty QuickMenu with nullptr layer.
      * @return True if success.
      */
-    XX_INIT_FUNC;
+    NUX_INIT_FUNC;
 
     /**
      * Initialize QuickMenu with content from a file.
      * @param string filename : Path to file for XMLDocument to load content.
      * @return True if success.
      */
-    XX_INIT_WITH_FILE_FUNC;
+    NUX_INIT_WITH_FILE_FUNC;
 
     /**
      * Add new Menu/Submenu with attributes and transitions.
@@ -189,12 +189,12 @@ private:
 
     // TODO IS CONTENT REALLY NEEDED?
     // XML Document content with Menu(s) structure.
-    xxXML::Content content;
+    nuxXML::Content content;
 
     // XML Node stack for MenuItems assignment.
-    xxXML::RevAttrStack revAttrStack;
+    nuxXML::RevAttrStack revAttrStack;
 };
 
-NS_XX_END
+NS_NUX_END
 
-#endif  // __XX_QUICK_MENU_H__
+#endif  // __NUX_QUICK_MENU_H__

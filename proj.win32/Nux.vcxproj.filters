@@ -19,63 +19,60 @@
     <Filter Include="Utils\StringUtilities">
       <UniqueIdentifier>{fcc83e02-cdca-495f-9ee0-0f822dca0e1b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Exe">
-      <UniqueIdentifier>{966eba38-5802-4e5a-9ad3-53a7f95839d1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utils\XMLDocument">
       <UniqueIdentifier>{70df85cb-6c94-457d-bece-689e95052c94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\source\QuickMenu\xxQuickMenu.cpp">
-      <Filter>QuickMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\source\ExtremeExtensions.cpp">
+    <ClCompile Include="..\source\Nux.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Exe</Filter>
+    <ClCompile Include="..\source\QuickMenu\nuxQuickMenu.cpp">
+      <Filter>QuickMenu</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\source\Utils\MessageHandler\xxMessageHandler.cpp">
+    <ClCompile Include="..\source\Utils\MessageHandler\nuxMessageHandler.cpp">
       <Filter>Utils\MessageHandler</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\source\Utils\StringUtilities\xxStringUtilities.cpp">
+    <ClCompile Include="..\source\Utils\StringUtilities\nuxStringUtilities.cpp">
       <Filter>Utils\StringUtilities</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\source\Utils\XMLDocument\xxXMLDocument.cpp">
+    <ClCompile Include="..\source\Utils\XMLDocument\nuxXMLDocument.cpp">
       <Filter>Utils\XMLDocument</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\nuxTest.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\include\ExtremeExtensions.h">
+    <ClInclude Include="..\include\Nux.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\include\QuickMenu\xxQuickMenu.h">
+    <ClInclude Include="..\include\nuxConfig.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nuxMacros.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\QuickMenu\nuxQuickMenu.h">
       <Filter>QuickMenu</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>Exe</Filter>
+    <ClInclude Include="..\include\QuickMenu\nuxQuickMenuDefines.h">
+      <Filter>QuickMenu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\include\Utils\MessageHandler\xxMessageHandler.h">
+    <ClInclude Include="..\include\Utils\MessageHandler\nuxMessageHandler.h">
       <Filter>Utils\MessageHandler</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\include\Utils\StringUtilities\xxStringUtilities.h">
+    <ClInclude Include="..\include\Utils\StringUtilities\nuxStringUtilities.h">
       <Filter>Utils\StringUtilities</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\include\QuickMenu\xxQuickMenuDefines.h">
-      <Filter>QuickMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\include\xxMacros.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\include\xxConfig.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\include\Utils\XMLDocument\xxXMLDocument.h">
+    <ClInclude Include="..\include\Utils\XMLDocument\nuxXMLDocument.h">
       <Filter>Utils\XMLDocument</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\include\Utils\XMLDocument\xxXMLDocumentDefines.h">
+    <ClInclude Include="..\include\Utils\XMLDocument\nuxXMLDocumentDefines.h">
       <Filter>Utils\XMLDocument</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nuxTest.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-#include "../Classes/include/ExtremeExtensions.h"
+#include "../Classes/include/Nux.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -7,5 +7,5 @@
 
 int main(int argc, char **argv)
 {
-    return xx::xxTest();
+    return nux::nuxTest();
 }
