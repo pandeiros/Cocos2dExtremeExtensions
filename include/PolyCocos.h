@@ -1,15 +1,15 @@
-﻿#ifndef __NUX_H__
-#define __NUX_H__
+﻿#ifndef __POLY_H__
+#define __POLY_H__
 
 /********************************************************************
  * /=================================\
- * | COCOS2D-X "NUX" EXTENSIONS PACK |
+ * | COCOS2D-X "PolyCocos" EXTENSIONS PACK |
  * \=================================/
  *
  * @authors
  *  - Paweł Kaczyński
  *
- * "Nux" (from latin "nut") contains many tools simplifying creation
+ * "PolyCocos" contains many tools simplifying creation
  * of commonly used features in game development. The maing goal is
  * to reduce the amount of work on non-gameplay and backend features
  * to minimum. It is a great pack to use on game jams.
@@ -22,24 +22,24 @@
 // Cocos2D lib
 #include "cocos2d.h"
 
-// Nux defines
-#include "nuxConfig.h"
+// PolyCocos defines
+#include "polyConfig.h"
 
-// Nux Main Packages
-#include "QuickMenu/nuxQuickMenu.h"
+// PolyCocos Main Packages
+#include "QuickMenu/polyQuickMenu.h"
 
-// Nux Utility Classes
-#include "Utils/XMLDocument/nuxXMLDocument.h"
-#include "Utils/MessageHandler/nuxMessageHandler.h"
-#include "Utils/StringUtilities/nuxStringUtilities.h"
+// PolyCocos Utility Classes
+#include "Utils/XMLDocument/polyXMLDocument.h"
+#include "Utils/MessageHandler/polyMessageHandler.h"
+#include "Utils/StringUtilities/polyStringUtilities.h"
 
-// Nux Test file
-#include "nuxTest.h"
+// PolyCocos Test file
+#include "polyTest.h"
 
-NS_NUX_BEGIN
+NS_POLY_BEGIN
 
-NUX_DLL const char* nuxVersion ();
+POLY_DLL const char* polyVersion ();
 
-NS_NUX_END
+NS_POLY_END
 
-#endif  // __NUX_H__
+#endif  // __POLY_H__

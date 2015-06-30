@@ -1,18 +1,16 @@
-#ifndef __NUX_STRING_UTILITIES_H__
-#define __NUX_STRING_UTILITIES_H__
+#ifndef __POLY_STRING_UTILITIES_H__
+#define __POLY_STRING_UTILITIES_H__
 
-#define nuxSTR StringUtilities
+#include "polyConfig.h"
 
-#include "../../nuxConfig.h"
-
-#include "../MessageHandler/nuxMessageHandler.h"
+#include "Utils/MessageHandler/polyMessageHandler.h"
 
 #include <string>
 #include <sstream>
 #include <iostream>
 #include <cassert>
 
-NS_NUX_BEGIN
+NS_POLY_BEGIN
 
 /**
  * Non-instantiable class. Provides various string operations.
@@ -53,6 +51,6 @@ inline Type StringUtilities::convertFromString (const std::string value) {
     return conversion;
 }
 
-NS_NUX_END
+NS_POLY_END
 
-#endif  // __NUX_STRING_UTILITIES_H__
+#endif  // __POLY_STRING_UTILITIES_H__

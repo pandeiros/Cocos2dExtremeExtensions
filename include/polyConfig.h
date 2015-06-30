@@ -1,5 +1,5 @@
-#ifndef __NUX_CONFIG_H__
-#define __NUX_CONFIG_H__
+#ifndef __POLY_CONFIG_H__
+#define __POLY_CONFIG_H__
 
 // Exclude rarely-used stuff from Windows headers
 #define WIN32_LEAN_AND_MEAN
@@ -8,10 +8,10 @@
 #include "cocos2d.h"
 
 // Shared, useful macros
-#include "nuxMacros.h"
+#include "polyMacros.h"
 
 // Versions
-#define NUX_VERSION 0x00000112
+#define POLY_VERSION 0x00000201
 #define MIN_REQUIRED_CC_VERSION 0x00030400
 #define MAX_TESTED_CC_VERSION 0x00030400
 
@@ -23,17 +23,17 @@
 #endif
 
 // Namespaces
-#define NS_NUX_BEGIN                     namespace nux {
-#define NS_NUX_END                       }
-#define USING_NS_NUX                     using namespace nux
-#define NS_NUX                           ::nux
+#define NS_POLY_BEGIN                     namespace poly {
+#define NS_POLY_END                       }
+#define USING_NS_POLY                     using namespace poly
+#define NS_POLY                           ::poly
 
 // DLL Export
 #ifdef WIN32
-    #define NUX_DLL __declspec(dllexport)
+    #define POLY_DLL __declspec(dllexport)
 #else
-    #define NUX_DLL
+    #define POLY_DLL
 #endif
 
 
-#endif  // __NUX_CONFIG_H__
+#endif  // __POLY_CONFIG_H__

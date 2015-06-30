@@ -25,7 +25,7 @@ cmake_policy(SET CMP0017 NEW)
 
 cmake_minimum_required(VERSION 2.8)
 
-set(APP_NAME nux)
+set(APP_NAME poly)
 project (${APP_NAME})
 
 set(COCOS2D_ROOT ${CMAKE_SOURCE_DIR}/cocos2d)
@@ -54,7 +54,7 @@ elseif(MACOSX OR APPLE)
   set(PLATFORM_FOLDER mac)
 elseif(LINUX)
   ADD_DEFINITIONS(-DLINUX)
-  set(PLATFORM_FOLDER linux)
+  set(PLATFORM_FOLDER lipoly)
 elseif(ANDROID)
   ADD_DEFINITIONS (-DUSE_FILE32API)
   set(PLATFORM_FOLDER android)
@@ -92,9 +92,9 @@ set(PLATFORM_SPECIFIC_HEADERS
   proj.ios_mac/ios/RootViewController.h
   proj.ios_mac/ios/AppController.h
 )
-elseif(LINUX) #assume linux
+elseif(LINUX) #assume lipoly
 set(PLATFORM_SPECIFIC_SRC
-  #proj.linux/main.cpp
+  #proj.lipoly/main.cpp
 )
 elseif ( WIN32 )
 set(PLATFORM_SPECIFIC_SRC
@@ -114,12 +114,12 @@ include_directories(
 )
 
 set(GAME_SRC
-  source/Nux.cpp
-  source/nuxTest.cpp
-  source/QuickMenu/nuxQuickMenu.cpp
-  source/Utils/XMLDocument/XMLDocument.cpp
-  source/Utils/StringUtilities/StringUtilities.cpp
-  source/Utils/MessageHandler/MessageHandler.cpp
+  src/PolyCocos.cpp
+  src/polyTest.cpp
+  src/QuickMenu/polyQuickMenu.cpp
+  src/Utils/XMLDocument/polyXMLDocument.cpp
+  src/Utils/StringUtilities/polyStringUtilities.cpp
+  src/Utils/MessageHandler/polyMessageHandler.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 

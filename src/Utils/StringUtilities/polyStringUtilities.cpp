@@ -1,12 +1,12 @@
-#include "../../../include/Utils/StringUtilities/nuxStringUtilities.h"
+#include "Utils/StringUtilities/polyStringUtilities.h"
 
-USING_NS_NUX;
+USING_NS_POLY;
 
 void StringUtilities::replaceKeyword (const std::string & keyword, const std::string & value, std::string & text) {
     // If keyword is not found, print an error.
     unsigned int keywordPos = text.find (keyword);
     if (keywordPos == std::string::npos) {
-        NUX_ERROR_RETURN ("Keyword '" + keyword + "' cannot be found!");
+        POLY_ERROR_RETURN ("Keyword '" + keyword + "' cannot be found!");
     }
 
     // Otherwise...
@@ -22,7 +22,7 @@ void StringUtilities::replaceKeyword (const std::string & keyword, const std::st
 
 cocos2d::Color3B StringUtilities::getColor3BFromHex (const std::string & color) {
     // #ff00ff or #f0f
-    NUX_ASSERT (color[0] == '#' && (color.size () == 4 || color.size () == 7));
+    POLY_ASSERT (color[0] == '#' && (color.size () == 4 || color.size () == 7));
 
     std::string red = "", green = "", blue = "";
     unsigned int iRed, iGreen, iBlue;

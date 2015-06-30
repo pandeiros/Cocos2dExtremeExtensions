@@ -24,54 +24,54 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\Nux.cpp">
+    <ClCompile Include="..\src\PolyCocos.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\QuickMenu\nuxQuickMenu.cpp">
+    <ClCompile Include="..\src\QuickMenu\polyQuickMenu.cpp">
       <Filter>QuickMenu</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\Utils\MessageHandler\nuxMessageHandler.cpp">
+    <ClCompile Include="..\src\Utils\MessageHandler\polyMessageHandler.cpp">
       <Filter>Utils\MessageHandler</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\Utils\StringUtilities\nuxStringUtilities.cpp">
+    <ClCompile Include="..\src\Utils\StringUtilities\polyStringUtilities.cpp">
       <Filter>Utils\StringUtilities</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\Utils\XMLDocument\nuxXMLDocument.cpp">
+    <ClCompile Include="..\src\Utils\XMLDocument\polyXMLDocument.cpp">
       <Filter>Utils\XMLDocument</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\nuxTest.cpp">
+    <ClCompile Include="..\src\polyTest.cpp">
       <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Nux.h">
+    <ClInclude Include="..\include\PolyCocos.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\nuxConfig.h">
+    <ClInclude Include="..\include\polyConfig.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\nuxMacros.h">
+    <ClInclude Include="..\include\polyMacros.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\QuickMenu\nuxQuickMenu.h">
+    <ClInclude Include="..\include\QuickMenu\polyQuickMenu.h">
       <Filter>QuickMenu</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\QuickMenu\nuxQuickMenuDefines.h">
+    <ClInclude Include="..\include\QuickMenu\polyQuickMenuDefines.h">
       <Filter>QuickMenu</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\MessageHandler\nuxMessageHandler.h">
+    <ClInclude Include="..\include\Utils\MessageHandler\polyMessageHandler.h">
       <Filter>Utils\MessageHandler</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\StringUtilities\nuxStringUtilities.h">
+    <ClInclude Include="..\include\Utils\StringUtilities\polyStringUtilities.h">
       <Filter>Utils\StringUtilities</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\XMLDocument\nuxXMLDocument.h">
+    <ClInclude Include="..\include\Utils\XMLDocument\polyXMLDocument.h">
       <Filter>Utils\XMLDocument</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\XMLDocument\nuxXMLDocumentDefines.h">
+    <ClInclude Include="..\include\Utils\XMLDocument\polyXMLDocumentDefines.h">
       <Filter>Utils\XMLDocument</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\nuxTest.h">
+    <ClInclude Include="..\include\polyTest.h">
       <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>

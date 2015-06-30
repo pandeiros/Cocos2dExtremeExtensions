@@ -1,6 +1,6 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
 
-#include "include/ExtremeExtensions.h"
+#include "PolyCocos.h"
 
 #endif    // __MAIN_H__

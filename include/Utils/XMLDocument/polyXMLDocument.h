@@ -1,12 +1,10 @@
-#ifndef __NUX_XML_DOCUMENT_H__
-#define __NUX_XML_DOCUMENT_H__
+#ifndef __POLY_XML_DOCUMENT_H__
+#define __POLY_XML_DOCUMENT_H__
 
-#define nuxXML XMLDocument
+#include "polyConfig.h"
 
-#include "../../nuxConfig.h"
-
-#include "nuxXMLDocumentDefines.h"
-#include "../MessageHandler/nuxMessageHandler.h"
+#include "polyXMLDocumentDefines.h"
+#include "Utils/MessageHandler/polyMessageHandler.h"
 
 #include <string>
 #include <vector>
@@ -14,7 +12,7 @@
 #include <fstream>
 #include <sstream>
 
-NS_NUX_BEGIN
+NS_POLY_BEGIN
 
 /**
  * XMLDocument contains of:
@@ -23,7 +21,7 @@ NS_NUX_BEGIN
  *  - (TBA) XML Schema to check different classes' set of available
  *    elements and their attributes.
  */
-class NUX_DLL XMLDocument {
+class POLY_DLL XMLDocument {
 public:
     // Types of nodes to be stored in the XML content.
     class XMLNode {
@@ -81,7 +79,7 @@ private:
      * XML file parser. Saves XML document in a vector of
      * XMLNodes (linear algorithm, linear storage).
      */
-    class NUX_DLL XMLParser {
+    class POLY_DLL XMLParser {
     public:
         /**
          * Constructor with filename argument.
@@ -162,7 +160,7 @@ private:
      * XML Schema verifier. (TBA) Check tags and their attributes, types
      * of data, nesting rules, default and obligatory values.
      */
-    class NUX_DLL XMLSchema {
+    class POLY_DLL XMLSchema {
     public:
         /**
          * Set Content to verify.
@@ -199,6 +197,6 @@ private:
     XMLSchema xmlSchema;
 };
 
-NS_NUX_END
+NS_POLY_END
 
-#endif  // __NUX_XML_DOCUMENT_H__
+#endif  // __POLY_XML_DOCUMENT_H__

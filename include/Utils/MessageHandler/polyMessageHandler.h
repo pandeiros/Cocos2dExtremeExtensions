@@ -1,23 +1,21 @@
-#ifndef __NUX_MESSAGE_HANDLER_H__
-#define __NUX_MESSAGE_HANDLER_H__
+#ifndef __POLY_MESSAGE_HANDLER_H__
+#define __POLY_MESSAGE_HANDLER_H__
 
-#define nuxMSG MessageHandler
-
-#include "../../nuxConfig.h"
+#include "polyConfig.h"
 
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include <map>
 
-NS_NUX_BEGIN
+NS_POLY_BEGIN
 
 /**
  * Non-instantiable class for displaying formatted message results.
  * Provides 4 message types: errors, warnings, information and elapsed
  * time messages. Contains predefined templates for popular messages.
  */
-class NUX_DLL MessageHandler {
+class POLY_DLL MessageHandler {
 public:
     // Message type.
     enum Type {
@@ -50,7 +48,6 @@ private:
     static std::map <Type, std::string> fillMsgHeaders ();
 };
 
-NS_NUX_END
+NS_POLY_END
 
-#endif  // __NUX_MESSAGE_HANDLER_H__
-
+#endif  // __POLY_MESSAGE_HANDLER_H__

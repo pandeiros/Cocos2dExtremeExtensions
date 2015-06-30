@@ -1,6 +1,6 @@
-#include "../../../include/Utils/XMLDocument/nuxXMLDocument.h"
+#include "Utils/XMLDocument/polyXMLDocument.h"
 
-USING_NS_NUX;
+USING_NS_POLY;
 
 // =========================
 // XMLDocument class methods
@@ -12,7 +12,7 @@ bool XMLDocument::verifyWithSchema (const std::string filename) {
     XMLParser schemaParser (filename);
 
     if (schemaParser.getContent ()->empty ()) {
-        NUX_ERROR_RETURN_FALSE ("Schema verification failed! (filename: " + filename + ")");
+        POLY_ERROR_RETURN_FALSE ("Schema verification failed! (filename: " + filename + ")");
     }
 
     this->xmlSchema.setContent (xmlParser.getContent ());
@@ -39,7 +39,7 @@ void XMLDocument::printAll () {
 XMLDocument::XMLParser::XMLParser (const std::string filename) : mFilename (filename) {
     if (!this->parse ()) {
         content.clear ();
-        NUX_ERROR_RETURN ("Parsing file failed! (filename: " + mFilename + ")");
+        POLY_ERROR_RETURN ("Parsing file failed! (filename: " + mFilename + ")");
     }
     else
         this->prepareRevAttrStack ();
@@ -120,7 +120,7 @@ void XMLDocument::XMLParser::prepareRevAttrStack () {
 bool XMLDocument::XMLParser::openFile (std::string & content) {
     // Check filename.
     if (mFilename == "") {
-        NUX_ERROR_RETURN_FALSE ("Requested file parsing on empty filename!");
+        POLY_ERROR_RETURN_FALSE ("Requested file parsing on empty filename!");
     }
 
     std::ifstream xmlFile;
@@ -128,7 +128,7 @@ bool XMLDocument::XMLParser::openFile (std::string & content) {
     // Open file
     xmlFile.open (mFilename, std::ios::in);
     if (!xmlFile.is_open ()) {
-        NUX_ERROR_RETURN_FALSE ("Cannot open XML config file! (file: " + mFilename + ")");
+        POLY_ERROR_RETURN_FALSE ("Cannot open XML config file! (file: " + mFilename + ")");
     }
 
     std::stringstream ss;
@@ -169,7 +169,7 @@ bool XMLDocument::XMLParser::parseContent (std::string & content) {
                         return false;
                 }
                 else {
-                    NUX_ERROR_RETURN_FALSE ("Invalid header tag name (line " + std::to_string (lines) + ").");
+                    POLY_ERROR_RETURN_FALSE ("Invalid header tag name (line " + std::to_string (lines) + ").");
                 }
             }
 
@@ -187,12 +187,12 @@ bool XMLDocument::XMLParser::parseContent (std::string & content) {
             else {
                 std::string temp = "";
                 temp += ch;
-                NUX_ERROR_RETURN_FALSE ("Invalid character combination '<" + temp + "' (line " + std::to_string (lines) + ").");
+                POLY_ERROR_RETURN_FALSE ("Invalid character combination '<" + temp + "' (line " + std::to_string (lines) + ").");
             }
 
         }
         else {
-            NUX_ERROR_RETURN_FALSE ("Invalid first character in XML content (line " + std::to_string (lines) + ").");
+            POLY_ERROR_RETURN_FALSE ("Invalid first character in XML content (line " + std::to_string (lines) + ").");
         }
     }
     return true;
@@ -236,7 +236,7 @@ bool XMLDocument::XMLParser::parseTag (std::string & content) {
                     node.type = XMLNode::NON_EMPTY_TAG_BEGIN;
                 }
                 else {
-                    NUX_ERROR_RETURN_FALSE ("Invalid tag name character (line " + std::to_string (lines) + ").");
+                    POLY_ERROR_RETURN_FALSE ("Invalid tag name character (line " + std::to_string (lines) + ").");
                 }
                 break;
 
@@ -248,7 +248,7 @@ bool XMLDocument::XMLParser::parseTag (std::string & content) {
                     isFinished = true;
                 }
                 else {
-                    NUX_ERROR_RETURN_FALSE ("Invalid tag name character (line " + std::to_string (lines) + ").");
+                    POLY_ERROR_RETURN_FALSE ("Invalid tag name character (line " + std::to_string (lines) + ").");
                 }
                 break;
 
@@ -263,7 +263,7 @@ bool XMLDocument::XMLParser::parseTag (std::string & content) {
                 }
                 else if (checkCharacter ('>')) {
                     if (isHeader) {
-                        NUX_ERROR_RETURN_FALSE ("Wrong header tag type! Has to be 'empty-tag' (line " + std::to_string (lines) + ").");
+                        POLY_ERROR_RETURN_FALSE ("Wrong header tag type! Has to be 'empty-tag' (line " + std::to_string (lines) + ").");
                     }
                     else {
                         node.type = XMLNode::NON_EMPTY_TAG_BEGIN;
@@ -272,7 +272,7 @@ bool XMLDocument::XMLParser::parseTag (std::string & content) {
                 }
                 else if (checkCharacter ('/')) {
                     if (isHeader) {
-                        NUX_ERROR_RETURN_FALSE ("Wrong header tag type! Has to be 'empty-tag' (line " + std::to_string (lines) + ").");
+                        POLY_ERROR_RETURN_FALSE ("Wrong header tag type! Has to be 'empty-tag' (line " + std::to_string (lines) + ").");
                     }
                     else if (this->checkNextCharacter (content, '>')) {
                         ++index;
@@ -283,12 +283,12 @@ bool XMLDocument::XMLParser::parseTag (std::string & content) {
                         isFinished = true;
                     }
                     else {
-                        NUX_ERROR_RETURN_FALSE ("Invalid tag closing (line " + std::to_string (lines) + ").");
+                        POLY_ERROR_RETURN_FALSE ("Invalid tag closing (line " + std::to_string (lines) + ").");
                     }
                 }
                 else if (checkCharacter ('?')) {
                     if (!isHeader) {
-                        NUX_ERROR_RETURN_FALSE ("Header type tags are not allowed here (line " + std::to_string (lines) + ").");
+                        POLY_ERROR_RETURN_FALSE ("Header type tags are not allowed here (line " + std::to_string (lines) + ").");
                     }
                     else if (this->checkNextCharacter (content, '>')) {
                         ++index;
@@ -300,7 +300,7 @@ bool XMLDocument::XMLParser::parseTag (std::string & content) {
                     }
                 }
                 else {
-                    NUX_ERROR_RETURN_FALSE ("Invalid character used inside the tag (line " + std::to_string (lines) + ").");
+                    POLY_ERROR_RETURN_FALSE ("Invalid character used inside the tag (line " + std::to_string (lines) + ").");
                 }
                 break;
         }
@@ -345,11 +345,11 @@ bool XMLDocument::XMLParser::parseAttribute (std::string & content) {
                         state = ATTR_VALUE;
                     }
                     else {
-                        NUX_ERROR_RETURN_FALSE ("Invalid attribute value opening character (line " + std::to_string (lines) + ").");
+                        POLY_ERROR_RETURN_FALSE ("Invalid attribute value opening character (line " + std::to_string (lines) + ").");
                     }
                 }
                 else {
-                    NUX_ERROR_RETURN_FALSE ("Invalid attribute name (line " + std::to_string (lines) + ").");
+                    POLY_ERROR_RETURN_FALSE ("Invalid attribute name (line " + std::to_string (lines) + ").");
                 }
                 break;
 
@@ -385,11 +385,11 @@ bool XMLDocument::XMLParser::parseComment (std::string & content) {
                         state = XMLParser::COMMENT;
                     }
                     else {
-                        NUX_ERROR_RETURN_FALSE ("Invalid comment opening (line " + std::to_string (lines) + ").");
+                        POLY_ERROR_RETURN_FALSE ("Invalid comment opening (line " + std::to_string (lines) + ").");
                     }
                 }
                 else {
-                    NUX_ERROR_RETURN_FALSE ("Invalid comment opening (line " + std::to_string (lines) + ").");
+                    POLY_ERROR_RETURN_FALSE ("Invalid comment opening (line " + std::to_string (lines) + ").");
                 }
                 break;
 
@@ -459,4 +459,3 @@ bool XMLDocument::XMLSchema::verify () {
 
     return true;
 }
-

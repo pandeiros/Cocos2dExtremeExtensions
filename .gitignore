@@ -11,6 +11,9 @@ linux-build/*
 # Documentation
 doc/*
 
+# Code::Blocks project files
+cb_project/*
+
 # Custom excludes
 *.tlog
 *.exp

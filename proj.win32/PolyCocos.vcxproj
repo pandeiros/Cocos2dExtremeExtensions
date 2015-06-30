@@ -69,12 +69,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
     <TargetExt>.dll</TargetExt>
-    <TargetName>$(NuxLibName)</TargetName>
+    <TargetName>$(PolyCocosLibName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
     <TargetExt>.dll</TargetExt>
-    <TargetName>$(NuxLibName)</TargetName>
+    <TargetName>$(PolyCocosLibName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -93,7 +93,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(NuxLibName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(PolyCocosLibName).dll</OutputFile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -101,8 +101,8 @@
     </Link>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)..\lib\win32\Debug" mkdir "$(SolutionDir)..\lib\win32\Debug"
-if exist "$(OutDir)$(NuxLibName).lib" xcopy /Y /Q "$(OutDir)$(NuxLibName).lib" "$(SolutionDir)..\lib\win32\Debug"
-if exist "$(OutDir)$(NuxLibName).dll" xcopy /Y /Q "$(OutDir)$(NuxLibName).dll" "$(SolutionDir)..\lib\win32\Debug"
+if exist "$(OutDir)$(PolyCocosLibName).lib" xcopy /Y /Q "$(OutDir)$(PolyCocosLibName).lib" "$(SolutionDir)..\lib\win32\Debug"
+if exist "$(OutDir)$(PolyCocosLibName).dll" xcopy /Y /Q "$(OutDir)$(PolyCocosLibName).dll" "$(SolutionDir)..\lib\win32\Debug"
       </Command>
     </PostBuildEvent>
     <PreLinkEvent>
@@ -127,7 +127,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </ClCompile>
     <Link>
       <AdditionalDependencies>libcurl_imp.lib;websockets.lib;%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(NuxLibName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(PolyCocosLibName).dll</OutputFile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -137,8 +137,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </Link>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)..\lib\win32\Release" mkdir "$(SolutionDir)..\lib\win32\Release"
-if exist "$(OutDir)$(NuxLibName).lib" xcopy /Y /Q "$(OutDir)$(NuxLibName).lib" "$(SolutionDir)..\lib\win32\Release"
-if exist "$(OutDir)$(NuxLibName).dll" xcopy /Y /Q "$(OutDir)$(NuxLibName).dll" "$(SolutionDir)..\lib\win32\Release"
+if exist "$(OutDir)$(PolyCocosLibName).lib" xcopy /Y /Q "$(OutDir)$(PolyCocosLibName).lib" "$(SolutionDir)..\lib\win32\Release"
+if exist "$(OutDir)$(PolyCocosLibName).dll" xcopy /Y /Q "$(OutDir)$(PolyCocosLibName).dll" "$(SolutionDir)..\lib\win32\Release"
       </Command>
     </PostBuildEvent>
     <PreLinkEvent>
@@ -147,24 +147,24 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\nuxTest.cpp" />
-    <ClCompile Include="..\source\QuickMenu\nuxQuickMenu.cpp" />
-    <ClCompile Include="..\source\Nux.cpp" />
-    <ClCompile Include="..\source\Utils\MessageHandler\nuxMessageHandler.cpp" />
-    <ClCompile Include="..\source\Utils\StringUtilities\nuxStringUtilities.cpp" />
-    <ClCompile Include="..\source\Utils\XMLDocument\nuxXMLDocument.cpp" />
+    <ClCompile Include="..\src\polyTest.cpp" />
+    <ClCompile Include="..\src\QuickMenu\polyQuickMenu.cpp" />
+    <ClCompile Include="..\src\PolyCocos.cpp" />
+    <ClCompile Include="..\src\Utils\MessageHandler\polyMessageHandler.cpp" />
+    <ClCompile Include="..\src\Utils\StringUtilities\polyStringUtilities.cpp" />
+    <ClCompile Include="..\src\Utils\XMLDocument\polyXMLDocument.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Nux.h" />
-    <ClInclude Include="..\include\nuxTest.h" />
-    <ClInclude Include="..\include\QuickMenu\nuxQuickMenu.h" />
-    <ClInclude Include="..\include\QuickMenu\nuxQuickMenuDefines.h" />
-    <ClInclude Include="..\include\Utils\MessageHandler\nuxMessageHandler.h" />
-    <ClInclude Include="..\include\Utils\StringUtilities\nuxStringUtilities.h" />
-    <ClInclude Include="..\include\Utils\XMLDocument\nuxXMLDocument.h" />
-    <ClInclude Include="..\include\Utils\XMLDocument\nuxXMLDocumentDefines.h" />
-    <ClInclude Include="..\include\nuxConfig.h" />
-    <ClInclude Include="..\include\nuxMacros.h" />
+    <ClInclude Include="..\include\PolyCocos.h" />
+    <ClInclude Include="..\include\polyTest.h" />
+    <ClInclude Include="..\include\QuickMenu\polyQuickMenu.h" />
+    <ClInclude Include="..\include\QuickMenu\polyQuickMenuDefines.h" />
+    <ClInclude Include="..\include\Utils\MessageHandler\polyMessageHandler.h" />
+    <ClInclude Include="..\include\Utils\StringUtilities\polyStringUtilities.h" />
+    <ClInclude Include="..\include\Utils\XMLDocument\polyXMLDocument.h" />
+    <ClInclude Include="..\include\Utils\XMLDocument\polyXMLDocumentDefines.h" />
+    <ClInclude Include="..\include\polyConfig.h" />
+    <ClInclude Include="..\include\polyMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">

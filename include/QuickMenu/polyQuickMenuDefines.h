@@ -1,5 +1,5 @@
-#ifndef __NUX_QUICK_MENU_DEFINES_H__
-#define __NUX_QUICK_MENU_DEFINES_H__
+#ifndef __POLY_QUICK_MENU_DEFINES_H__
+#define __POLY_QUICK_MENU_DEFINES_H__
 
 // Create function
 #define QM_CREATE_FULL_FUNC \
@@ -19,4 +19,4 @@ static QuickMenu * create(cocos2d::Layer * layer, const std::string filename) \
     } \
 }
 
-#endif  // __NUX_QUICK_MENU_DEFINES_H__
+#endif  // __POLY_QUICK_MENU_DEFINES_H__

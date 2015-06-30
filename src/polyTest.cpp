@@ -1,16 +1,16 @@
-#include "../include/nuxTest.h"
+#include "polyTest.h"
 
-NS_NUX_BEGIN
+NS_POLY_BEGIN
 
-NUX_DLL bool nuxTest () {
+POLY_DLL bool polyTest () {
 
     // TESTS HERE ====================================
 
-    NUX_LOG ("Test result: Success.");
+    POLY_LOG ("Test result: Success.");
 
     return true;
 
     // ===============================================
 }
 
-NS_NUX_END
+NS_POLY_END

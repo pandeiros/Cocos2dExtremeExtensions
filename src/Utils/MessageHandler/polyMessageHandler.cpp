@@ -1,9 +1,9 @@
-#include "../../../include/Utils/MessageHandler/nuxMessageHandler.h"
+#include "Utils/MessageHandler/polyMessageHandler.h"
 
-USING_NS_NUX;
+USING_NS_POLY;
 
 // Static init.
-std::map <nuxMSG::Type, std::string> nuxMSG::MsgHeaders = nuxMSG::fillMsgHeaders ();
+std::map <MessageHandler::Type, std::string> MessageHandler::MsgHeaders = MessageHandler::fillMsgHeaders ();
 
 void MessageHandler::printMessage (const std::string message, Type type) {
     std::string output = "";
@@ -16,7 +16,7 @@ void MessageHandler::printMessage (const std::string message, Type type) {
     output += "\n";
 
 #ifdef COCOS2D_DEBUG
-    NUX_LOG (output.c_str ());
+    POLY_LOG (output.c_str ());
 #endif
 }
 
