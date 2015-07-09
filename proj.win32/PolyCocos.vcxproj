@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{76A39BB2-9B84-4C65-98A5-654D86B86F2A}</ProjectGuid>
+    <ProjectGuid>{11111111-2222-3333-4444-555555555555}</ProjectGuid>
     <RootNamespace>test_win32</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
@@ -94,20 +94,30 @@
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(PolyCocosLibName).dll</OutputFile>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
+      <!--DEBUG_LIBS--><AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <PreBuildEvent>
+      <Command>if not exist "$(ProjectDir)$(Configuration).win32" mkdir "$(ProjectDir)$(Configuration).win32"
+<!--COPY_COCOS-->
+<!--COPY_SPINE-->
+<!--COPY_BOX-->
+      </Command>
+    </PreBuildEvent>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)..\lib\win32\Debug" mkdir "$(SolutionDir)..\lib\win32\Debug"
 if exist "$(OutDir)$(PolyCocosLibName).lib" xcopy /Y /Q "$(OutDir)$(PolyCocosLibName).lib" "$(SolutionDir)..\lib\win32\Debug"
 if exist "$(OutDir)$(PolyCocosLibName).dll" xcopy /Y /Q "$(OutDir)$(PolyCocosLibName).dll" "$(SolutionDir)..\lib\win32\Debug"
+<!--RD_OUTDIR-->
       </Command>
     </PostBuildEvent>
     <PreLinkEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
-xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</Command>
+<!--DEBUG_LOOP-->
+xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -128,22 +138,32 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <Link>
       <AdditionalDependencies>libcurl_imp.lib;websockets.lib;%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(PolyCocosLibName).dll</OutputFile>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
+      <OptimizeReferences>true</OptimizeReferences>
+      <!--RELEASE_LIBS--><AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <PreBuildEvent>
+      <Command>if not exist "$(ProjectDir)$(Configuration).win32" mkdir "$(ProjectDir)$(Configuration).win32"
+<!--COPY_COCOS-->
+<!--COPY_SPINE-->
+<!--COPY_BOX-->
+      </Command>
+    </PreBuildEvent>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)..\lib\win32\Release" mkdir "$(SolutionDir)..\lib\win32\Release"
 if exist "$(OutDir)$(PolyCocosLibName).lib" xcopy /Y /Q "$(OutDir)$(PolyCocosLibName).lib" "$(SolutionDir)..\lib\win32\Release"
 if exist "$(OutDir)$(PolyCocosLibName).dll" xcopy /Y /Q "$(OutDir)$(PolyCocosLibName).dll" "$(SolutionDir)..\lib\win32\Release"
+<!--RD_OUTDIR-->
       </Command>
     </PostBuildEvent>
     <PreLinkEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
-xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</Command>
+<!--RELEASE_LOOP-->
+xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

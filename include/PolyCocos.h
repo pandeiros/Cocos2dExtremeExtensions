@@ -9,8 +9,8 @@
  * @authors
  *  - Paweł Kaczyński
  *
- * "PolyCocos" contains many tools simplifying creation
- * of commonly used features in game development. The maing goal is
+ * "PolyCocos" contains many tools simplifying the creation process
+ * of commonly used features in game development. The main goal is
  * to reduce the amount of work on non-gameplay and backend features
  * to minimum. It is a great pack to use on game jams.
  *
