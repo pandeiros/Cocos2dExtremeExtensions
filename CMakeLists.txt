@@ -25,7 +25,7 @@ cmake_policy(SET CMP0017 NEW)
 
 cmake_minimum_required(VERSION 2.8)
 
-set(APP_NAME poly)
+set(APP_NAME polycocos)
 project (${APP_NAME})
 
 set(COCOS2D_ROOT ${CMAKE_SOURCE_DIR}/cocos2d)
@@ -54,7 +54,7 @@ elseif(MACOSX OR APPLE)
   set(PLATFORM_FOLDER mac)
 elseif(LINUX)
   ADD_DEFINITIONS(-DLINUX)
-  set(PLATFORM_FOLDER lipoly)
+  set(PLATFORM_FOLDER linux)
 elseif(ANDROID)
   ADD_DEFINITIONS (-DUSE_FILE32API)
   set(PLATFORM_FOLDER android)
@@ -92,9 +92,9 @@ set(PLATFORM_SPECIFIC_HEADERS
   proj.ios_mac/ios/RootViewController.h
   proj.ios_mac/ios/AppController.h
 )
-elseif(LINUX) #assume lipoly
+elseif(LINUX) #assume linux
 set(PLATFORM_SPECIFIC_SRC
-  #proj.lipoly/main.cpp
+  #proj.linux/main.cpp
 )
 elseif ( WIN32 )
 set(PLATFORM_SPECIFIC_SRC

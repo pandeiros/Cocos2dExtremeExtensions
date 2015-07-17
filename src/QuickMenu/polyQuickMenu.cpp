@@ -219,7 +219,7 @@ void QuickMenu::addFontAttributes (MIFont * item) {
 }
 
 void QuickMenu::addTransition () {// (cocos2d::Menu * menu) {
-    cocos2d::MenuItem * item = (cocos2d::MenuItem*) menus.back ().getMenu ()->getChildByName ("label_1");
+    cocos2d::MenuItem * item = static_cast<cocos2d::MenuItem*>(menus.back ().getMenu ()->getChildByName ("label_1"));
     //item->setCallback (CC_CALLBACK_1 (QuickMenu::Transition::callback, QuickMenu::Transition));
     item->setCallback ([] (Ref* pSender) {QuickMenu::callback (pSender); });
 }

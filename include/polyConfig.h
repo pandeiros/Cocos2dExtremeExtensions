@@ -11,9 +11,9 @@
 #include "polyMacros.h"
 
 // Versions
-#define POLY_VERSION 0x00000201
+#define POLY_VERSION 0x00000202
 #define MIN_REQUIRED_CC_VERSION 0x00030400
-#define MAX_TESTED_CC_VERSION 0x00030400
+#define MAX_TESTED_CC_VERSION 0x00030600
 
 #if (MIN_REQUIRED_CC_VERSION > COCOS2D_VERSION)
     #error  "Minimum cocos2d-x version requirements are not met."
