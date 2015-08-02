@@ -2,11 +2,12 @@
 
 NS_POLY_BEGIN
 
-POLY_DLL bool polyTest () {
+POLY_DLL bool polyTest()
+{
 
     // TESTS HERE ====================================
 
-    POLY_LOG ("Test result: Success.");
+    POLY_LOG("Test result: Success.");
 
     return true;
 

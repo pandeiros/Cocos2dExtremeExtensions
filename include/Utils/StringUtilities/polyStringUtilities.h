@@ -15,7 +15,8 @@ NS_POLY_BEGIN
 /**
  * Non-instantiable class. Provides various string operations.
  */
-class StringUtilities {
+class StringUtilities
+{
 public:
     /**
      * Convert given argument from std::string to Type.
@@ -23,7 +24,7 @@ public:
      * @param string value : Value to be converted.
      */
     template <typename Type>
-    static Type convertFromString (const std::string value);
+    static Type convertFromString(const std::string value);
 
     /**
      * Replace given keyword in referenced text with value.
@@ -31,23 +32,24 @@ public:
      * @param string value : String to be inserted instead of the given keyword.
      * @param string & text : Reference to text, in which the replacement is done.
      */
-    static void replaceKeyword (const std::string & keyword, const std::string & value, std::string & text);
+    static void replaceKeyword(const std::string & keyword, const std::string & value, std::string & text);
 
     /**
      * Convert hex color code to cocos2d::Color3B object.
      * @param string color : Hex color code.
      * @return Color3B object.
      */
-    static cocos2d::Color3B getColor3BFromHex (const std::string & color);
+    static cocos2d::Color3B getColor3BFromHex(const std::string & color);
 };
 
 
 template <typename Type>
-inline Type StringUtilities::convertFromString (const std::string value) {
+inline Type StringUtilities::convertFromString(const std::string value)
+{
     std::stringstream ss;
-    ss.str (value);
+    ss.str(value);
     Type conversion;
-    ss >> conversion;
+    ss>>conversion;
     return conversion;
 }
 

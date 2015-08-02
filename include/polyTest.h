@@ -6,7 +6,7 @@
 
 NS_POLY_BEGIN
 
-POLY_DLL bool polyTest ();
+POLY_DLL bool polyTest();
 
 NS_POLY_END
 

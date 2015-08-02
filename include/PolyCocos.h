@@ -38,7 +38,7 @@
 
 NS_POLY_BEGIN
 
-POLY_DLL const char* polyVersion ();
+POLY_DLL const char* polyVersion();
 
 NS_POLY_END
 
